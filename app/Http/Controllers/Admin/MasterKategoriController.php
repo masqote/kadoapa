@@ -74,7 +74,8 @@ class MasterKategoriController extends Controller
         $nama_kategori = $req->nama_kategori;
 
         DB::table('kategori')->insert([
-          'nama_kategori' => $nama_kategori
+          'nama_kategori' => $nama_kategori,
+          'created_at' => \Carbon\Carbon::now(),
         ]);
       
       return response()->json('Success', http_response_code(200));

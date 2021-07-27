@@ -32,6 +32,7 @@
               <span class="navbar-divider d-mobile-none"></span>
 
               <ul class="nav nav-navbar">
+                <a class="nav-link" href="{{url('/')}}">Home</a>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Demos <span class="arrow"></span></a>
                   <ul class="nav">

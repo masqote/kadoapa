@@ -44,8 +44,9 @@ class KadoController extends Controller
       }
 
       $rsData = DB::table('kado as a')
-      ->select('a.id','a.nama_kado','a.harga','a.pria','a.wanita','a.umur','a.deskripsi','a.created_at','a.thumbnail','a.slug','b.nama_group')
+      ->select('a.id','a.nama_kado','a.harga','a.pria','a.wanita','a.umur','a.deskripsi','a.created_at','a.slug','b.nama_group','x.foto as foto_thumbnail')
       ->leftJoin('kado_groups as b', 'a.id_kado_group', '=', 'b.id')
+      ->leftJoin('kado_foto as x', 'a.thumbnail', '=', 'x.id')
       ->where('a.fg_aktif',1);
 
       if ($kategori) {
@@ -136,29 +137,36 @@ class KadoController extends Controller
       $kado->lokasi = $lokasi;
       $kado->kategori = $kategori;
 
-      $foto = DB::table('kado as a')
-      ->leftJoin('kado_foto as b', 'a.id', '=', 'b.id_kado')
-      ->where('b.id_kado', $id)
+      $foto = DB::table('kado_foto as a')
+      ->select('a.*','b.thumbnail','b.nama_kado')
+      ->leftJoin('kado as b', 'a.id', '=', 'b.thumbnail')
+      ->where('a.id_kado',$id)
       ->get();
+
 
       $video = DB::table('kado as a')
       ->leftJoin('kado_videos as b', 'a.id', '=', 'b.id_kado')
+      ->leftJoin('kado_foto as c', 'a.thumbnail', '=', 'c.id')
       ->where('b.id_kado', $id)
       ->first();
 
       $relatedProduct = DB::table('kado as a')
-      ->select('a.*','b.nama_group')
+      ->select('a.*','b.nama_group','c.foto as thumbnail')
       ->leftJoin('kado_groups as b', 'a.id_kado_group', '=', 'b.id')
+      ->leftJoin('kado_foto as c', 'a.thumbnail', '=', 'c.id')
       ->where('a.id_kado_group',$kado->id_kado_group)
       ->where('a.id','<>',$id)
       ->get();
+
+      
 
 
       $data['foto'] = $foto;
       $data['video'] = $video;
       $data['kado'] = $kado;
       $data['related_product'] = $relatedProduct;
-
+      // dd($data['foto']);
+  
         
 
       return response()->json($data, http_response_code(200));

@@ -45,6 +45,9 @@ use Illuminate\Support\Facades\Route;
         Route::post('/master/update_detail_kado/{id}', 'App\Http\Controllers\Admin\MasterKadoController@updateDetailKado');
         Route::post('/master/add_kategori_kado', 'App\Http\Controllers\Admin\MasterKadoController@addKategoriKado');
         Route::post('/master/delete_kategori_kado', 'App\Http\Controllers\Admin\MasterKadoController@deleteKategoriKado');
+        Route::post('/master/add_lokasi_kado', 'App\Http\Controllers\Admin\MasterKadoController@addLokasiKado');
+        Route::post('/master/add_foto_kado/{id}', 'App\Http\Controllers\Admin\MasterKadoController@addFotoKado');
+        Route::post('/master/set_thumbnail', 'App\Http\Controllers\Admin\MasterKadoController@setThumbnail');
     });
 
     Route::get('/', function () { return view('home'); })->name('home');

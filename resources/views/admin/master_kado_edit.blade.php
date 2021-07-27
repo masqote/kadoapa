@@ -152,14 +152,14 @@ Master Kado Edit
                 
                 <div class="col-md-6 mx-auto">
                   <label>Thumbnail</label>
-                  <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                  {{-- <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
                     <input id="upload" type="file" name="thumbnail" onchange="readURL(this);" class="form-control border-0">
                     <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                     <div class="input-group-append">
                         <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
                     </div>
                     <input type="hidden" name="link_thumbnail" value="{{$result->thumbnail}}">
-                  </div>
+                  </div> --}}
 
                   <!-- Uploaded image area-->
                   <div class="image-area mt-4"><img id="imageResult" src="{{asset($result->thumbnail)}}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
@@ -225,12 +225,142 @@ Master Kado Edit
 
           {{-- Gallery Kado --}}
           <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
-            abc
+            <form action="{{url('master/add_foto_kado').'/'.$result->id}}" method="post" enctype="multipart/form-data">
+              {{ csrf_field() }}
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputEmail4">Foto Kado</label>
+                  <div class="input-group">
+                    <input type="file" name="foto[]" class="form-control" multiple>
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-primary border-left-0" data-toggle="tooltip" data-placement="top" title="Tambah Foto"><i class="ya ya-plus m-0"></i></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-4">
+
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="inputEmail4">Video Kado</label>
+                  <div class="input-group">
+                    <input type="file" name="video" class="form-control">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-primary border-left-0" data-toggle="tooltip" data-placement="top" title="Tambah video"><i class="ya ya-plus m-0"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+              <hr style="margin-top:60px;">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="width: 5%;">#</th>
+                        <th>Foto</th>
+                        <th>Thumbnail</th>
+                        <th style="width: 5%;" colspan="2" class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @php
+                        $no = 1;
+                      @endphp
+                      @foreach($result->foto as $row)
+                      <tr>
+                        <td>{{$no++}}</td>
+                        <td><img src="{{asset("$row->foto")}}" alt="" style="width:200px; height:150px;"></td>
+                        <td>
+                          @if($row->thumbnail)
+                          <span class="badge badge-pill badge-primary">YES</span>
+                          @endif
+                        </td>
+                        <td>
+                          <button type="button" style="color: white;" class="btn btn-success" onclick="setThumbnail('{{$row->id}}','{{$result->id}}')">Jadikan Thumbnail</button>
+                        </td>
+                        <td>
+                          <button type="button" style="color: white;" class="btn btn-danger">Nonaktifkan</button>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
           </div>
 
-          {{-- Gallery Kado --}}
+          {{-- Lokasi  Kado --}}
           <div class="tab-pane fade" id="lokasi" role="tabpanel" aria-labelledby="lokasi-tab">
-            abc123
+
+            <form id="frm_lokasi" onsubmit="return addLokasiKado()">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputEmail4">Nama Lokasi</label>
+                    <input type="text" name="nama_lokasi" class="form-control">
+                </div>
+                <div class="form-group col-md-8">
+                  <label for="inputEmail4">Lokasi</label>
+                    <input type="text" name="lokasi" class="form-control">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputEmail4">Background</label>
+                    <input type="text" name="background" class="form-control">
+                    *Note : 
+                      <ul>
+                        <li>Shopee : <span style="background: #FF6600; color:white;">#FF6600</span></li>
+                        <li>Tokopedia : <span style="background: #00ff2a; color:white;">#00ff2a</span></li>
+                      </ul>
+                    
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputEmail4">Color</label>
+                    <input type="text" name="color" class="form-control">
+                </div>
+              </div>
+              <input type="hidden" name="id_kado" value="{{$result->id}}">
+              <div class="form-row float-right">
+                <button type="submit" class="btn btn-primary">Add Lokasi</button>
+              </div>
+            </form>
+              <hr style="margin-top:60px;">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="width: 5%;">#</th>
+                        <th>Nama Lokasi</th>
+                        <th>Link Beli</th>
+                        <th>Background</th>
+                        <th>Color</th>
+                        <th style="width: 5%;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @php
+                        $no = 1;
+                      @endphp
+                      @foreach($result->lokasi as $row)
+                      <tr>
+                        <td>{{$no++}}</td>
+                        <td>{{$row->nama_lokasi}}</td>
+                        <td><a href="{{$row->lokasi}}">{{$row->lokasi}}</a> </td>
+                        <td style="background:{{$row->background}}; color:white;">{{$row->background}}</td>
+                        <td>{{$row->color}}</td>
+                        <td>
+                          <button type="button" style="color: white;" class="btn btn-danger">X</button>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
           </div>
 
         </div>
@@ -249,42 +379,15 @@ Master Kado Edit
 
 $(document).ready(function(){
 
+  $("#frm_lokasi").submit(function(e) {
+        e.preventDefault();
+    });
+
   ClassicEditor.create(document.querySelector('#editor'));
 
 });
 
-function readURL(input) {
 
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            $('#imageResult')
-                .attr('src', e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-$(function () {
-    $('#upload').on('change', function () {
-        readURL(input);
-    });
-});
-
-
-/*  ==========================================
-    SHOW UPLOADED IMAGE NAME
-* ========================================== */
-var input = document.getElementById( 'upload' );
-var infoArea = document.getElementById( 'upload-label' );
-
-input.addEventListener( 'change', showFileName );
-function showFileName( event ) {
-  var input = event.srcElement;
-  var fileName = input.files[0].name;
-  infoArea.textContent = 'File name: ' + fileName;
-}
 
 function addKategoriKado(id_kado){
   id_kategori = $('#kategori_kado [name="kategori"]').val();
@@ -353,6 +456,63 @@ function deleteKategoriKado(id) {
           .error(function(data) {
             swal("Oops", "We couldn't connect to the server!", "error");
           });
+        });
+}
+
+function addLokasiKado(id_kado){
+  var dtForm 		= $('#frm_lokasi').serializeArray();
+  showLoading();
+       
+        $.ajax({
+            type 	: 'POST',
+            url: "{{url('/master/add_lokasi_kado')}}",
+            headers	: { 
+              "X-CSRF-TOKEN": "{{ csrf_token() }}" 
+              },
+            dataType: "json",
+            data: dtForm,
+            success: function( data ) {
+              swal("Success!", data, "success");
+              location.reload();
+            },
+            error : function(xhr) {
+            swal("Error!", xhr.responseJSON.message, "error");
+            closeLoading();
+            
+            },
+            complete : function(xhr,status){
+              closeLoading();
+            }
+        });
+}
+
+function setThumbnail(id,id_kado){
+  showLoading();
+       
+        $.ajax({
+            type 	: 'POST',
+            url: "{{url('/master/set_thumbnail')}}",
+            headers	: { 
+              "X-CSRF-TOKEN": "{{ csrf_token() }}" 
+              },
+            dataType: "json",
+            data: {
+              'id': id,
+              'id_kado': id_kado
+            },
+            success: function( data ) {
+              swal("Success!", data, "success");
+              location.reload();
+
+            },
+            error : function(xhr) {
+            swal("Error!", xhr.responseJSON.message, "error");
+            closeLoading();
+            
+            },
+            complete : function(xhr,status){
+              closeLoading();
+            }
         });
 }
   

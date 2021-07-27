@@ -198,7 +198,7 @@ Rekomendasi kado {{ request()->group }}
                 
                   foto_kado_1 += `
                   <a class="gallery-item" href="`+b.foto+`">
-                    <img src="`+b.foto+`" alt="`+b.nama_kado+`" style="max-height:300px;">
+                    <img src="{{asset('`+b.foto+`')}}" alt="`+kado.nama_kado+`" style="max-height:300px;">
                   </a>
                   `;
 
@@ -214,8 +214,8 @@ Rekomendasi kado {{ request()->group }}
             video_kado += `
             <div class="col-md-8 mx-auto">
               <div class="video-btn-wrapper aos-init aos-animate" data-aos="fade-up">
-                <img class="shadow-2 rounded-lg" src="`+video.thumbnail+`" alt="watch a video">
-                <a class="btn btn-circle btn-xl btn-info" href="`+video.video+`" data-provide="lightbox"><i class="fa fa-play"></i></a>
+                <img class="shadow-2 rounded-lg" src="{{asset('`+video.foto+`')}}" alt="watch a video">
+                <a class="btn btn-circle btn-xl btn-info" href="{{asset('`+video.video+`')}}" data-provide="lightbox"><i class="fa fa-play"></i></a>
               </div>
 
               </div>

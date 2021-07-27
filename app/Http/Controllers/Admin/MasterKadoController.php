@@ -62,7 +62,9 @@ class MasterKadoController extends Controller
   public function editData(Request $req, $id){
 
     $qData = DB::table('kado as a')
+    ->select('a.*','b.foto as thumbnail')
     ->where('a.id',$id)
+    ->leftJoin('kado_foto as b', 'a.thumbnail', '=', 'b.id')
     ->first();
 
     $group = DB::table('kado_groups as a')
@@ -77,25 +79,32 @@ class MasterKadoController extends Controller
         ->where('a.id_kado',$id)
         ->get();
 
-    $foto = DB::table('kado as a')
-      ->select('b.foto')
-      ->leftJoin('kado_foto as b', 'a.id', '=', 'b.id_kado')
-      ->where('b.id_kado', $id)
-      ->get();
+    $foto = DB::table('kado_foto as a')
+    ->select('a.*','b.thumbnail')
+    ->leftJoin('kado as b', 'a.id', '=', 'b.thumbnail')
+    ->where('a.id_kado',$id)
+    ->get();
     
     $video = DB::table('kado as a')
       ->select('b.video')
       ->leftJoin('kado_videos as b', 'a.id', '=', 'b.id_kado')
       ->where('b.id_kado', $id)
       ->first();
+    
+    $lokasi = DB::table('kado_lokasi as a')
+      ->select('a.*')
+      ->where('a.id_kado',$id)
+      ->get();
         
     $qData->kategori_kado = $kategori_kado;
     $qData->foto = $foto;
     $qData->video = $video;
+    $qData->lokasi = $lokasi;
 
     $data['result'] = $qData;
     $data['group'] = $group;
     $data['kategori'] = $kategori;
+    // dd($data);
 
     return view('admin.master_kado_edit',$data);
 
@@ -103,8 +112,7 @@ class MasterKadoController extends Controller
 
   public function updateDetailKado(Request $req,$id){
     // dd($req->all());
-    $link_thumbnail = $req->link_thumbnail;
-    $thumbnail = $req->thumbnail;
+   
     $pria = NULL;
     $wanita = NULL;
     $nama_kado = $req->nama_kado;
@@ -121,16 +129,6 @@ class MasterKadoController extends Controller
     if ($req->wanita == 'on') {
       $wanita = 1;
     }
-
-    if ($thumbnail) {
-      $file = $req->file('thumbnail');
-      $thumbnail = 'img/kado/'.time()."_".$file->getClientOriginalName();
-      // isi dengan nama folder tempat kemana file diupload
-      $tujuan_upload = 'img/kado';
-      $file->move($tujuan_upload,$thumbnail);
-    }else{
-      $thumbnail = $link_thumbnail;
-    }
 	
     DB::table('kado')
               ->where('id', $id)
@@ -143,7 +141,6 @@ class MasterKadoController extends Controller
                 'harga' => $harga,
                 'umur' => $umur,
                 'deskripsi' => $deskripsi,
-                'thumbnail' => $thumbnail,
                 'fg_aktif' => 1,
                 'updated_at' => \Carbon\Carbon::now(),
               ]);
@@ -167,7 +164,8 @@ class MasterKadoController extends Controller
 
     $qData = DB::table('kado_kategori')->insert([
       'id_kado' => $id_kado,
-      'id_kategori' => $id_kategori
+      'id_kategori' => $id_kategori,
+      'created_at' => \Carbon\Carbon::now(),
     ]);
 
     return response()->json('Success add kategori', http_response_code(200));
@@ -181,6 +179,79 @@ class MasterKadoController extends Controller
     ->delete();
 
     return response()->json('Success', http_response_code(200));
+  }
+
+  public function addLokasiKado(Request $req){
+    $id_kado = $req->id_kado;
+    $nama_lokasi = $req->nama_lokasi;
+    $lokasi = $req->lokasi;
+    $background = $req->background;
+    $color = $req->color;
+
+    $qData = DB::table('kado_lokasi')->insert([
+      'id_kado' => $id_kado,
+      'lokasi' => $lokasi,
+      'nama_lokasi' => $nama_lokasi,
+      'color' => $color,
+      'background' => $background,
+      'created_at' => \Carbon\Carbon::now(),
+    ]);
+
+    return response()->json('Success add lokasi', http_response_code(200));
+  }
+
+  public function addFotoKado(Request $req,$id){
+
+      $file_foto = $req->file('foto');
+      $file_video = $req->file('video');
+
+      if ($file_foto) {
+        foreach ($file_foto as $item) {
+          $foto = 'img/kado/'.time()."_".$item->getClientOriginalName();
+          // isi dengan nama folder tempat kemana file diupload
+          $tujuan_upload = 'img/kado';
+          $item->move($tujuan_upload,$foto);
+
+          DB::table('kado_foto')->insert([
+            'id_kado' => $id,
+            'foto' => $foto,
+            'fg_aktif' => 1,
+            'created_at' => \Carbon\Carbon::now(),
+          ]);
+
+        }
+
+      }
+
+      if ($file_video) {
+        $video = 'video/kado/'.time()."_".$file_video->getClientOriginalName();
+        // isi dengan nama folder tempat kemana file diupload
+        $tujuan_upload = 'video/kado';
+        $file_video->move($tujuan_upload,$video);
+
+        DB::table('kado_videos')->insert([
+          'id_kado' => $id,
+          'video' => $video,
+          'fg_aktif' => 1,
+          'created_at' => \Carbon\Carbon::now(),
+        ]);
+      }
+
+      return redirect()->back();
+  }
+
+  public function setThumbnail(Request $req){
+    $id = $req->id;
+    $id_kado = $req->id_kado;
+
+    DB::table('kado')
+              ->where('id', $id_kado)
+              ->update([
+                'thumbnail' => $id,
+                'updated_at' => \Carbon\Carbon::now(),
+              ]);
+
+    return response()->json('Success update thumbnail', http_response_code(200));
   }
  
 

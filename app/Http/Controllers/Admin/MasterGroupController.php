@@ -39,7 +39,8 @@ class MasterGroupController extends Controller
     $nama_group = $req->nama_group;
 
     DB::table('kado_groups')->insert([
-      'nama_group' => $nama_group
+      'nama_group' => $nama_group,
+      'created_at' => \Carbon\Carbon::now(),
     ]);
 
     return response()->json('Success', http_response_code(200));

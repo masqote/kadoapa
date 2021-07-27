@@ -245,8 +245,8 @@ style="background-image: linear-gradient(135deg, #e4d71d 0%, #764ba2 100%);">
               var kategori = '';
               var gender = '';
 
-              if (y.thumbnail == null) {
-                y.thumbnail = thumbnail;
+              if (y.foto_thumbnail == null) {
+                y.foto_thumbnail = thumbnail;
               }
 
               if (y.kategori.length > 0) {
@@ -272,7 +272,7 @@ style="background-image: linear-gradient(135deg, #e4d71d 0%, #764ba2 100%);">
                   <a href="{{url('rekomendasi-kado-`+nama_group+`/`+y.id+`/`+y.slug+`')}}" target="_blank">
                     <div class="card d-block shadow-lg p-3 mb-5 bg-white rounded hover-move-up" style="margin-top:-20px;">
                       <div class="card-img-top">
-                        <img src="{{asset('`+y.thumbnail+`')}}" alt="Card image cap">
+                        <img src="{{asset('`+y.foto_thumbnail+`')}}" alt="Card image cap">
                         <div class="badges">
                           `+kategori+`
                         </div>
