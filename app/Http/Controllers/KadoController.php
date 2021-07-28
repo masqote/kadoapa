@@ -110,6 +110,8 @@ class KadoController extends Controller
       $group = $req->group;
       $slug = $req->slug;
 
+      
+
       $kado = DB::table('kado as a')
       ->select('a.*','b.nama_group')
       ->leftJoin('kado_groups as b', 'a.id_kado_group', '=', 'b.id')
@@ -141,6 +143,7 @@ class KadoController extends Controller
       ->select('a.*','b.thumbnail','b.nama_kado')
       ->leftJoin('kado as b', 'a.id', '=', 'b.thumbnail')
       ->where('a.id_kado',$id)
+      ->where('a.fg_aktif',1)
       ->get();
 
 
@@ -148,6 +151,7 @@ class KadoController extends Controller
       ->leftJoin('kado_videos as b', 'a.id', '=', 'b.id_kado')
       ->leftJoin('kado_foto as c', 'a.thumbnail', '=', 'c.id')
       ->where('b.id_kado', $id)
+      ->where('b.fg_aktif',1)
       ->first();
 
       $relatedProduct = DB::table('kado as a')
@@ -156,19 +160,17 @@ class KadoController extends Controller
       ->leftJoin('kado_foto as c', 'a.thumbnail', '=', 'c.id')
       ->where('a.id_kado_group',$kado->id_kado_group)
       ->where('a.id','<>',$id)
-      ->get();
-
       
-
+      ->get();
 
       $data['foto'] = $foto;
       $data['video'] = $video;
       $data['kado'] = $kado;
       $data['related_product'] = $relatedProduct;
-      // dd($data['foto']);
-  
-        
 
+
+      // dd($data['group']);
+      
       return response()->json($data, http_response_code(200));
       
     }

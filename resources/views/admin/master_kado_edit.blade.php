@@ -253,6 +253,30 @@ Master Kado Edit
                 </div>
               </div>
             </form>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" style="width: 5%;">#</th>
+                      <th>Video</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        @if($result->video)
+                        <video width="320" height="240" controls src="{{asset($result->video->video)}}">
+                          Your browser does not support the video tag.
+                        </video>
+                        @endif
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
               <hr style="margin-top:60px;">
               <div class="form-row">
                 <div class="form-group col-md-12">
@@ -272,17 +296,25 @@ Master Kado Edit
                       @foreach($result->foto as $row)
                       <tr>
                         <td>{{$no++}}</td>
-                        <td><img src="{{asset("$row->foto")}}" alt="" style="width:200px; height:150px;"></td>
+                        <td><img src="{{asset($row->foto)}}" alt="" style="width:200px; height:150px;"></td>
                         <td>
                           @if($row->thumbnail)
                           <span class="badge badge-pill badge-primary">YES</span>
                           @endif
                         </td>
                         <td>
-                          <button type="button" style="color: white;" class="btn btn-success" onclick="setThumbnail('{{$row->id}}','{{$result->id}}')">Jadikan Thumbnail</button>
+                          @if($row->fg_aktif == 1)
+                            @if(!$row->thumbnail)
+                            <button type="button" style="color: white;" class="btn btn-info" onclick="setThumbnail('{{$row->id}}','{{$result->id}}')">Jadikan Thumbnail</button>
+                            @endif
+                          @endif
                         </td>
                         <td>
-                          <button type="button" style="color: white;" class="btn btn-danger">Nonaktifkan</button>
+                          @if($row->fg_aktif == 1)
+                            <button type="button" style="color: white;" onclick="setFgAktif('{{$row->id}}','nonaktif')" class="btn btn-danger">Nonaktifkan</button>
+                          @else
+                            <button type="button" style="color: white;"onclick="setFgAktif('{{$row->id}}','aktif')" class="btn btn-success">Aktifkan</button>
+                          @endif
                         </td>
                       </tr>
                       @endforeach
@@ -353,7 +385,7 @@ Master Kado Edit
                         <td style="background:{{$row->background}}; color:white;">{{$row->background}}</td>
                         <td>{{$row->color}}</td>
                         <td>
-                          <button type="button" style="color: white;" class="btn btn-danger">X</button>
+                          <button type="button" onclick="deleteLokasiKado('{{$row->id}}')" style="color: white;" class="btn btn-danger">X</button>
                         </td>
                       </tr>
                       @endforeach
@@ -486,6 +518,45 @@ function addLokasiKado(id_kado){
         });
 }
 
+function deleteLokasiKado(id){
+  swal({
+          title: "Are you sure?", 
+          text: "Are you sure that you want to delete this data?", 
+          type: "warning",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          confirmButtonText: "Yes, deleted it!",
+          confirmButtonColor: "#ec6c62"
+        }, function() {
+          $.ajax({
+                type 	: 'POST',
+                url: "{{url('/master/delete_lokasi_kado')}}",
+                headers	: { 
+                  "X-CSRF-TOKEN": "{{ csrf_token() }}" 
+                  },
+                dataType: "json",
+                data: {
+                  'id':id,
+                },
+                success: function( data ) {
+                  location.reload();
+                },
+                error : function(xhr) {
+                
+                },
+                complete : function(xhr,status){
+               
+                }
+            })
+          .done(function(data) {
+            swal("Canceled!", "Your data successfully deleted!", "success");
+          })
+          .error(function(data) {
+            swal("Oops", "We couldn't connect to the server!", "error");
+          });
+        });
+}
+
 function setThumbnail(id,id_kado){
   showLoading();
        
@@ -499,6 +570,36 @@ function setThumbnail(id,id_kado){
             data: {
               'id': id,
               'id_kado': id_kado
+            },
+            success: function( data ) {
+              swal("Success!", data, "success");
+              location.reload();
+
+            },
+            error : function(xhr) {
+            swal("Error!", xhr.responseJSON.message, "error");
+            closeLoading();
+            
+            },
+            complete : function(xhr,status){
+              closeLoading();
+            }
+        });
+}
+
+function setFgAktif(id,status){
+  showLoading();
+       
+        $.ajax({
+            type 	: 'POST',
+            url: "{{url('/master/set_fg_aktif')}}",
+            headers	: { 
+              "X-CSRF-TOKEN": "{{ csrf_token() }}" 
+              },
+            dataType: "json",
+            data: {
+              'id': id,
+              'status': status
             },
             success: function( data ) {
               swal("Success!", data, "success");

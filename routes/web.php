@@ -46,8 +46,21 @@ use Illuminate\Support\Facades\Route;
         Route::post('/master/add_kategori_kado', 'App\Http\Controllers\Admin\MasterKadoController@addKategoriKado');
         Route::post('/master/delete_kategori_kado', 'App\Http\Controllers\Admin\MasterKadoController@deleteKategoriKado');
         Route::post('/master/add_lokasi_kado', 'App\Http\Controllers\Admin\MasterKadoController@addLokasiKado');
+        Route::post('/master/delete_lokasi_kado', 'App\Http\Controllers\Admin\MasterKadoController@deleteLokasiKado');
         Route::post('/master/add_foto_kado/{id}', 'App\Http\Controllers\Admin\MasterKadoController@addFotoKado');
         Route::post('/master/set_thumbnail', 'App\Http\Controllers\Admin\MasterKadoController@setThumbnail');
+        Route::post('/master/set_fg_aktif', 'App\Http\Controllers\Admin\MasterKadoController@setFgAktif');
+
+        // Master Blog
+        Route::get('/master/blog', 'App\Http\Controllers\Admin\MasterBlogController@index');
+        Route::post('/master/add_blog', 'App\Http\Controllers\Admin\MasterBlogController@addBlog');
+        Route::get('/master/list_blog', 'App\Http\Controllers\Admin\MasterBlogController@listBlog')->name('list_blog');
+        Route::post('/master/search_list_blog', 'App\Http\Controllers\Admin\MasterBlogController@searchListBlog');
+        Route::get('/master/edit_blog/{id}', 'App\Http\Controllers\Admin\MasterBlogController@editBlog');
+        Route::post('/master/update_blog/{id}', 'App\Http\Controllers\Admin\MasterBlogController@updateBlog');
+
+        // CK Editor
+        Route::post('ckeditor/upload', 'App\Http\Controllers\Admin\UploadController@upload')->name('upload.upload');
     });
 
     Route::get('/', function () { return view('home'); })->name('home');
@@ -58,8 +71,10 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/rekomendasi-kado-{group}/{id}/{slug}', function () { return view('rekomendasi_kado'); });
 
-
     Route::get('/details', 'App\Http\Controllers\UserController@details');
+
+    Route::get('/blog', 'App\Http\Controllers\BlogController@index');
+    Route::get('/blog/{id}/{slug}', 'App\Http\Controllers\BlogController@detailBlog');
 
 
 

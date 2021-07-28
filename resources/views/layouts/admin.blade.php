@@ -32,8 +32,15 @@
 							</li>
 						</ul>
 
-
-
+						<ul class="navbar-nav">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="{{url('master/blog')}}">Create Blog</a>
+									<a class="dropdown-item" href="{{url('master/list_blog')}}">List Blog</a>
+								</div>
+							</li>
+						</ul>
 
 						<ul class="navbar-nav">
 							<li class="nav-item dropdown">

@@ -1,10 +1,21 @@
 @extends('layouts.master')
 
 @section('title')
-Rekomendasi kado {{ request()->group }}
+Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.name')}}
 @endsection
 
 @section('css')
+<!--  Open Graph Tags -->
+<meta property="og:title" content="Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.name')}}">
+<meta property="og:description" content="Kado {{ ucwords(str_replace("-", " ", request()->slug))}} Adalah Kado Yang Cocok Untuk Orang Tersayang Anda - Rekomendasi Kado {{ ucwords(str_replace("-", " ", request()->group))}} {{'- '.config('app.name')}}">
+<meta property="og:image" content="https://masqote.github.io/medhy/assets/img/thumb/Capture.PNG">
+<meta property="og:url" content="{{url('rekomendasi-kado-'.request()->group.'/'.request()->id.'/'.request()->slug)}} {{'- '.config('app.name')}}">
+<meta property="og:locale" content="id_ID" />
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="description" content="Rekomendasi Kado {{ ucwords(str_replace("-", " ", request()->group))}} - Kado {{ ucwords(str_replace("-", " ", request()->slug))}} Adalah Kado Yang Cocok Untuk Orang Tersayang Anda {{'- '.config('app.name')}}">
+<meta name="keywords" content="Rekomendasi kado yang unik, Kado {{ ucwords(str_replace("-", " ", request()->slug)) }}, Kado {{ ucwords(str_replace("-", " ", request()->group)) }}, Kado untuk orang yang cuek, Kado anniversary yang berkesan, Kado pernikahan yang unik, Kado ulang tahun, Kado wisuda {{'- '.config('app.name')}}">
+
 <style>
   .product-price{
     font-weight: bold;
@@ -145,7 +156,6 @@ Rekomendasi kado {{ request()->group }}
 
   $(document).ready(function(){
     detail_kado();
-    
   });
 
   function detail_kado(){

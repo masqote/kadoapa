@@ -1,11 +1,23 @@
 @extends('layouts.master')
 
 @section('title')
-Cari Kado
+Bingung Cari Kado ? Tenang! Ada{{' '.config('app.name')}}
 @endsection
 
-@section('content')
-<!-- Header -->
+@section('css')
+<!--  Open Graph Tags -->
+<meta property="og:title" content="Cari Kado {{'- '.config('app.name')}}">
+<meta property="og:description" content="Bingung cari kado ? tenang! jangan bingung, kami akan membantu anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
+<meta property="og:image" content="https://masqote.github.io/medhy/assets/img/thumb/Capture.PNG">
+<meta property="og:url" content="{{url('/')}}">
+<meta property="og:locale" content="id_ID" />
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="description" content="Bingung cari kado ? tenang! jangan bingung, kami akan membantu anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
+<meta name="keywords" content="Kado untuk cowok yang unik, Kado untuk cewek yang unik, Kado untuk sahabat yang berkesan, Kado anniversary untuk orang tua, Kado untuk pernikahan sahabat, Kado ulang tahun yang unik, Kado wisuda untuk cewek, Kado wisuda untuk cowok, Kado untuk anak yang bagus {{'- '.config('app.name')}}">
+@endsection
+
+@section('header')
 <header id="home" class="header text-white h-fullscreen text-center text-lg-left" 
 style="background-image: linear-gradient(135deg, #e4d71d 0%, #764ba2 100%);">
   
@@ -70,6 +82,10 @@ style="background-image: linear-gradient(135deg, #e4d71d 0%, #764ba2 100%);">
     </div>
   </div>
 </header><!-- /.header -->
+@endsection
+
+@section('content')
+<!-- Header -->
 
       <section class="section overflow-hidden" id="rekomendasi_kado">
         <div class="container">
@@ -224,7 +240,7 @@ style="background-image: linear-gradient(135deg, #e4d71d 0%, #764ba2 100%);">
           'sort_harga': sort_harga
         },
         success: function( data ) {
-
+          console.log(data);
           var tbl = '';
           var kado = data.kado.data;
           var thumbnail = "{{asset('img/default/gift-1.jpg')}}";

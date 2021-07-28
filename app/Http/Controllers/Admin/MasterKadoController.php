@@ -67,6 +67,10 @@ class MasterKadoController extends Controller
     ->leftJoin('kado_foto as b', 'a.thumbnail', '=', 'b.id')
     ->first();
 
+    if (!$qData) {
+      return redirect()->back();
+    }
+
     $group = DB::table('kado_groups as a')
     ->get();
 
@@ -84,7 +88,7 @@ class MasterKadoController extends Controller
     ->leftJoin('kado as b', 'a.id', '=', 'b.thumbnail')
     ->where('a.id_kado',$id)
     ->get();
-    
+    // dd($foto);
     $video = DB::table('kado as a')
       ->select('b.video')
       ->leftJoin('kado_videos as b', 'a.id', '=', 'b.id_kado')
@@ -200,6 +204,15 @@ class MasterKadoController extends Controller
     return response()->json('Success add lokasi', http_response_code(200));
   }
 
+  public function deleteLokasiKado(Request $req){
+    $id = $req->id;
+    $qData = DB::table('kado_lokasi')
+    ->where('id',$id)
+    ->delete();
+
+    return response()->json('Success', http_response_code(200));
+  }
+
   public function addFotoKado(Request $req,$id){
 
       $file_foto = $req->file('foto');
@@ -250,6 +263,39 @@ class MasterKadoController extends Controller
                 'thumbnail' => $id,
                 'updated_at' => \Carbon\Carbon::now(),
               ]);
+
+    return response()->json('Success update thumbnail', http_response_code(200));
+  }
+
+  public function setFgAktif(Request $req){
+    $id = $req->id;
+    $status = $req->status;
+
+    $check = DB::table('kado')
+    ->where('thumbnail',$id)
+    ->first();
+
+    if ($check) {
+      http_response_code(500);
+      exit(json_encode(['message' => 'Thumbnail tidak bisa dinonaktifkan!']));
+    }
+
+    if ($status == 'aktif') {
+      DB::table('kado_foto')
+        ->where('id', $id)
+        ->update([
+          'fg_aktif' => 1,
+          'updated_at' => \Carbon\Carbon::now(),
+        ]);
+    }else{
+      DB::table('kado_foto')
+        ->where('id', $id)
+        ->update([
+          'fg_aktif' => 0,
+          'updated_at' => \Carbon\Carbon::now(),
+        ]);
+    }
+
 
     return response()->json('Success update thumbnail', http_response_code(200));
   }

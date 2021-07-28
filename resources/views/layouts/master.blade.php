@@ -33,7 +33,10 @@
 
               <ul class="nav nav-navbar">
                 <a class="nav-link" href="{{url('/')}}">Home</a>
-                <li class="nav-item">
+                <a class="nav-link" href="{{url('/blog')}}">Blog</a>
+                <a class="nav-link" href="{{url('/about')}}">About</a>
+                <a class="nav-link" href="{{url('/contact')}}">Contact</a>
+                {{-- <li class="nav-item">
                   <a class="nav-link" href="#">Demos <span class="arrow"></span></a>
                   <ul class="nav">
 
@@ -47,7 +50,7 @@
                       </nav>
                     </li>
                   </ul>
-                </li>
+                </li> --}}
 
               </ul>
             </section>
@@ -61,6 +64,7 @@
         <div class="notif-msg" style="display:none;">
         </div>
         
+        @yield('header')
 
         <main class="main-content">
           
