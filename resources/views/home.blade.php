@@ -1,25 +1,25 @@
 @extends('layouts.master')
 
 @section('title')
-Bingung Cari Kado ? Tenang! Ada{{' '.config('app.name')}}
+{{config('app.name')}} - Bingung Cari Kado ? Tenang! Ada {{config('app.name')}}
 @endsection
 
 @section('css')
 <!--  Open Graph Tags -->
-<meta property="og:title" content="Cari Kado {{'- '.config('app.name')}}">
-<meta property="og:description" content="Bingung cari kado ? tenang! jangan bingung, kami akan membantu anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
-<meta property="og:image" content="https://masqote.github.io/medhy/assets/img/thumb/Capture.PNG">
+<meta property="og:title" content="Bingung Cari Kado? Tenang! ada{{' '.config('app.name')}}">
+<meta property="og:description" content="Kami akan membantu dan merekomendasikan anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
+<meta property="og:image" content="{{asset('img/logo/favicon.png')}}">
 <meta property="og:url" content="{{url('/')}}">
 <meta property="og:locale" content="id_ID" />
 <meta name="twitter:card" content="summary_large_image">
 
-<meta name="description" content="Bingung cari kado ? tenang! jangan bingung, kami akan membantu anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
+<meta name="description" content="Kami akan membantu dan merekomendasikan anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
 <meta name="keywords" content="Kado untuk cowok yang unik, Kado untuk cewek yang unik, Kado untuk sahabat yang berkesan, Kado anniversary untuk orang tua, Kado untuk pernikahan sahabat, Kado ulang tahun yang unik, Kado wisuda untuk cewek, Kado wisuda untuk cowok, Kado untuk anak yang bagus {{'- '.config('app.name')}}">
 @endsection
 
 @section('header')
 <header id="home" class="header text-white h-fullscreen text-center text-lg-left" 
-style="background-image: linear-gradient(135deg, #e4d71d 0%, #764ba2 100%);">
+style="background-image: linear-gradient(135deg, #8b98fc 30%,  #764ba2 100% 100%);">
   
   <div class="container">
     <div class="row align-items-center h-100">
@@ -288,7 +288,7 @@ style="background-image: linear-gradient(135deg, #e4d71d 0%, #764ba2 100%);">
                   <a href="{{url('rekomendasi-kado-`+nama_group+`/`+y.id+`/`+y.slug+`')}}" target="_blank">
                     <div class="card d-block shadow-lg p-3 mb-5 bg-white rounded hover-move-up" style="margin-top:-20px;">
                       <div class="card-img-top">
-                        <img src="{{asset('`+y.foto_thumbnail+`')}}" alt="Card image cap">
+                        <img src="{{asset('`+y.foto_thumbnail+`')}}"  alt="Card image cap">
                         <div class="badges">
                           `+kategori+`
                         </div>
@@ -296,9 +296,9 @@ style="background-image: linear-gradient(135deg, #e4d71d 0%, #764ba2 100%);">
 
                       <div class="card-body">
                         <h6 class="mb-0" style="font-weight:700;">`+y.nama_kado+`</h6>
-                        <span class="lead-1 text-success" style="font-weight:500;">Rp. `+set_currency(y.harga)+`</span>
+                        <span class="lead-1 text-primary" style="font-weight:500;">Rp. `+set_currency(y.harga)+`</span>
                         <br>
-                        <small style="color:grey; float:right; "><i class="fa fa-comment" aria-hidden="true"></i> 43 Comment</small>
+                        <small style="color:grey; float:right; "><i class="fa fa-picture-o" aria-hidden="true"></i> `+y.jumlah_foto+` Images</small>
                         <small style="float:left; ">
                           `+gender+`
                         </small>

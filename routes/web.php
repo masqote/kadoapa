@@ -16,7 +16,21 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/login', function () { return view('login'); })->name('login')->middleware('guest');
     Route::post('/login_process', 'App\Http\Controllers\UserController@loginWeb')->middleware('guest');
-    
+
+    Route::get('/', function () { return view('home'); })->name('home');
+
+    Route::post('/all_kategori', 'App\Http\Controllers\KadoController@kategori');
+    Route::post('/all_kado', 'App\Http\Controllers\KadoController@index');
+    Route::post('/detail_kado/{id}/{slug}', 'App\Http\Controllers\KadoController@detailKado');
+
+    Route::get('/rekomendasi-kado-{group}/{id}/{slug}', function () { return view('rekomendasi_kado'); });
+
+    Route::get('/inspirasi-kado-{group}', 'App\Http\Controllers\KadoController@relatedKado');
+    Route::post('/search_inspirasi_kado', 'App\Http\Controllers\KadoController@searchRelatedKado');
+
+    Route::get('/blog', 'App\Http\Controllers\BlogController@index');
+    Route::get('/blog/{id}/{slug}', 'App\Http\Controllers\BlogController@detailBlog');
+
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/logout', 'App\Http\Controllers\UserController@logout');
         Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
@@ -62,19 +76,6 @@ use Illuminate\Support\Facades\Route;
         // CK Editor
         Route::post('ckeditor/upload', 'App\Http\Controllers\Admin\UploadController@upload')->name('upload.upload');
     });
-
-    Route::get('/', function () { return view('home'); })->name('home');
-
-    Route::post('/all_kategori', 'App\Http\Controllers\KadoController@kategori');
-    Route::post('/all_kado', 'App\Http\Controllers\KadoController@index');
-    Route::post('/detail_kado/{id}/{slug}', 'App\Http\Controllers\KadoController@detailKado');
-
-    Route::get('/rekomendasi-kado-{group}/{id}/{slug}', function () { return view('rekomendasi_kado'); });
-
-    Route::get('/details', 'App\Http\Controllers\UserController@details');
-
-    Route::get('/blog', 'App\Http\Controllers\BlogController@index');
-    Route::get('/blog/{id}/{slug}', 'App\Http\Controllers\BlogController@detailBlog');
 
 
 

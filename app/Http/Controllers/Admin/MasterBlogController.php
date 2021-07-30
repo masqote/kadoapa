@@ -128,7 +128,7 @@ class MasterBlogController extends Controller
                 'category_id' => $kategori,
                 'fg_aktif' => 1,
                 'keywords' => $keyword,
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => \Carbon\Carbon::now(),
               ]);
       }
 

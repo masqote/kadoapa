@@ -7,6 +7,7 @@
     <title>
         @yield('title')
     </title>
+    <link rel="icon" href="{{asset('img/logo/favicon.png')}}" sizes="32x32" />
     <link href="{{asset('css/page.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link href="{{asset('css/loading.css')}}" rel="stylesheet">
@@ -17,14 +18,14 @@
 </head>
 <body class="demo-section">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm bg-white rounded" style="top:0;" data-navbar="smart">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm bg-white rounded" style="top:0;" data-navbar="fixed">
           <div class="container">
 
             <div class="navbar-left">
               <button class="navbar-toggler" type="button"><span class="navbar-toggler-icon"></span></button>
               <a class="navbar-brand" href="{{url('/')}}">
-                <img class="logo-dark" src="{{asset('img/logo-dark.png')}}" alt="logo">
-                <img class="logo-light" src="{{asset('img/logo-light.png')}}" alt="logo">
+                <img class="logo-dark" style="width: 130px;" src="{{asset('img/logo/zonakado1.png')}}" alt="logo">
+                <img class="logo-light" style="width: 130px;" src="{{asset('img/logo/zonakado1.png')}}" alt="logo">
               </a>
             </div>
 
@@ -55,7 +56,7 @@
               </ul>
             </section>
 
-            <a class="btn btn-xs btn-round btn-success" href="https://themeforest.net/item/thesaas-responsive-bootstrap-saas-software-webapp-template/19778599?license=regular&open_purchase_for_item_id=19778599&purchasable=source&ref=thethemeio">Buy Now</a>
+            <a class="btn btn-xs btn-round btn-info" href="{{url('/')}}">Cari Kado <i class="fa fa-search" aria-hidden="true"></i> </a>
 
           </div>
         </nav><!-- /.navbar -->

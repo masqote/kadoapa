@@ -8,13 +8,13 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
 <!--  Open Graph Tags -->
 <meta property="og:title" content="Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.name')}}">
 <meta property="og:description" content="Kado {{ ucwords(str_replace("-", " ", request()->slug))}} Adalah Kado Yang Cocok Untuk Orang Tersayang Anda - Rekomendasi Kado {{ ucwords(str_replace("-", " ", request()->group))}} {{'- '.config('app.name')}}">
-<meta property="og:image" content="https://masqote.github.io/medhy/assets/img/thumb/Capture.PNG">
-<meta property="og:url" content="{{url('rekomendasi-kado-'.request()->group.'/'.request()->id.'/'.request()->slug)}} {{'- '.config('app.name')}}">
+<meta property="og:image" content="{{asset('img/logo/favicon.png')}}">
+<meta property="og:url" content="{{url('rekomendasi-kado-'.request()->group.'/'.request()->id.'/'.request()->slug)}}">
 <meta property="og:locale" content="id_ID" />
 <meta name="twitter:card" content="summary_large_image">
 
 <meta name="description" content="Rekomendasi Kado {{ ucwords(str_replace("-", " ", request()->group))}} - Kado {{ ucwords(str_replace("-", " ", request()->slug))}} Adalah Kado Yang Cocok Untuk Orang Tersayang Anda {{'- '.config('app.name')}}">
-<meta name="keywords" content="Rekomendasi kado yang unik, Kado {{ ucwords(str_replace("-", " ", request()->slug)) }}, Kado {{ ucwords(str_replace("-", " ", request()->group)) }}, Kado untuk orang yang cuek, Kado anniversary yang berkesan, Kado pernikahan yang unik, Kado ulang tahun, Kado wisuda {{'- '.config('app.name')}}">
+<meta name="keywords" content="Rekomendasi kado yang unik, Kado {{ ucwords(str_replace("-", " ", request()->slug)) }}, Kado {{ ucwords(str_replace("-", " ", request()->group)) }}, Rekomendasi kado pernikahan, Rekomendasi kado untuk cowok ,Rekomendasi kado untuk ibu, Rekomendasi kado untuk sahabat {{'- '.config('app.name')}}">
 
 <style>
   .product-price{
@@ -80,6 +80,10 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
     <hr>
     <div class="row">
 
+      <div class="col-md-12">
+        <img class="banner_ads mb-6" src="{{asset('img/banner/728x90.gif')}}" alt="custom_html_banner1" style="width:100%">
+      </div>
+
       <div class="col-md-7 mr-auto  mb-md-0">
 
         <ul class="nav nav-tabs-outline nav-separated" role="tablist">
@@ -115,7 +119,7 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
       <div class="col-md-4">
         <h2 id="nama_kado"> </h2>
         <p style="font-size:20px;">
-          <span class="badge badge-glass badge-success" >Rp. <span id="harga_kado"></span></span>
+          <span class="badge badge-glass badge-info" >Rp. <span id="harga_kado"></span></span>
         </p>
 
         <p id="deskripsi_kado">Built-in GPS. Water resistance to 50 meters.1 A lightning-fast dual‑core processor. And a display that’s two times brighter than before. Full of features that help you stay active.</p>
@@ -124,9 +128,10 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
         <div class="text-center" id="lokasi_kado">
           
         </div>
+        <hr>
       </div>
     </div>
-    <hr>
+    
 
     
 
@@ -198,7 +203,7 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
 
           $.each(kado.kategori,function(x,y){
             kategori += `
-              <span class="badge badge-glass badge-primary">`+y.nama_kategori+`</span>
+              <span class="badge badge-glass badge-info">`+y.nama_kategori+`</span>
             `;
           });
 
@@ -266,9 +271,9 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
             });
 
             related += `
-            <button type="button" class="btn btn-outline-primary" style="margin-top:50%; margin-left:30px;">
+            <a href="{{url('inspirasi-kado-`+nama_group+`')}}" class="btn btn-outline-primary" style="margin-top:50%; margin-left:30px;">
                Lihat semua >>
-            </button>
+            </a>
             `;
 
           }
