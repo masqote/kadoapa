@@ -22,7 +22,8 @@ class MasterKadoController extends Controller
 
     DB::table('kado')->insert([
       'nama_kado' => $nama_kado,
-      'slug' => $slug
+      'slug' => $slug,
+      'created_at' => \Carbon\Carbon::now(),
     ]);
 
     return response()->json('Success', http_response_code(200));

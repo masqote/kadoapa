@@ -31,6 +31,11 @@ use Illuminate\Support\Facades\Route;
     Route::get('/blog', 'App\Http\Controllers\BlogController@index');
     Route::get('/blog/{id}/{slug}', 'App\Http\Controllers\BlogController@detailBlog');
 
+    //Sitemap
+    Route::get('/sitemap', 'App\Http\Controllers\SitemapController@index');
+    Route::get('/sitemap/blog', 'App\Http\Controllers\SitemapController@blog');
+    Route::get('/sitemap/kado', 'App\Http\Controllers\SitemapController@kado');
+
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/logout', 'App\Http\Controllers\UserController@logout');
         Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
