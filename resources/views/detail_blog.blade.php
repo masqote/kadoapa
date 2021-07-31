@@ -19,6 +19,7 @@
 </style>
 
 <!--  Open Graph Tags -->
+<link rel="canonical" href="{{url('blog'.'/'.request()->id.'/'.request()->slug )}}" />
 <meta property="og:title" content="{{$blog->title}} {{'- '.config('app.name')}}">
 <meta property="og:description" content="{{$blog->description}} {{'- '.config('app.name')}}">
 <meta property="og:image" content="{{asset($blog->thumbnail)}}">
@@ -74,7 +75,7 @@
                   </a></p>
                   <h4><a href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}">{{$row->title}}</a></h4>
                   <br>
-                  <a class="btn btn-outline-light" href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}">Read more</a>
+                  <a class="btn btn-outline-light" href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}">Read Blog</a>
                 </div>
               </div>
             </div>
@@ -101,7 +102,7 @@
             <h6 class="sidebar-title">Baca Juga!</h6>
             @foreach($randomPost as $row)
               <a class="media text-default align-items-center mb-5" href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}">
-                <img class="rounded w-65px mr-4" src="{{asset($row->thumbnail)}}">
+                <img class="rounded w-65px mr-4" src="{{asset($row->thumbnail)}}" alt="{{$row->title}}">
                 <p class="media-body small-2 lh-4 mb-0">{{$row->title}}</p>
               </a>
             @endforeach

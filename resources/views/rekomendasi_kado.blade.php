@@ -5,6 +5,12 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
 @endsection
 
 @section('css')
+<link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+
+<link rel="canonical" href="{{url('rekomendasi-kado-'.request()->group.'/'.request()->id.'/'.request()->slug)}}" />
+
+
 <!--  Open Graph Tags -->
 <meta property="og:title" content="Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.name')}}">
 <meta property="og:description" content="Kado {{ ucwords(str_replace("-", " ", request()->slug))}} Adalah Kado Yang Cocok Untuk Orang Tersayang Anda - Rekomendasi Kado {{ ucwords(str_replace("-", " ", request()->group))}} {{'- '.config('app.name')}}">
@@ -15,6 +21,7 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
 
 <meta name="description" content="Rekomendasi Kado {{ ucwords(str_replace("-", " ", request()->group))}} - Kado {{ ucwords(str_replace("-", " ", request()->slug))}} Adalah Kado Yang Cocok Untuk Orang Tersayang Anda {{'- '.config('app.name')}}">
 <meta name="keywords" content="Rekomendasi kado yang unik, Kado {{ ucwords(str_replace("-", " ", request()->slug)) }}, Kado {{ ucwords(str_replace("-", " ", request()->group)) }}, Rekomendasi kado pernikahan, Rekomendasi kado untuk cowok ,Rekomendasi kado untuk ibu, Rekomendasi kado untuk sahabat {{'- '.config('app.name')}}">
+
 
 <style>
   .product-price{
@@ -153,6 +160,7 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
 @endsection
 
 @section('js')
+<script src="{{asset('js/owl.carousel.min.js')}}"></script>
 
 <script>
   var url_group = '{!! request()->group !!}'; 

@@ -5,6 +5,7 @@
 @endsection
 
 @section('css')
+<link rel="canonical" href="{{url('/')}}" />
 <!--  Open Graph Tags -->
 <meta property="og:title" content="Bingung Cari Kado? Tenang! ada{{' '.config('app.name')}}">
 <meta property="og:description" content="Kami akan membantu dan merekomendasikan anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
@@ -19,7 +20,7 @@
 
 @section('header')
 <header id="home" class="header text-white h-fullscreen text-center text-lg-left" 
-style="background-image: linear-gradient(135deg, #8b98fc 30%,  #764ba2 100% 100%);">
+style="background: linear-gradient(135deg, #8b98fc 40%,  #764ba2 100% 100%);">
   
   <div class="container">
     <div class="row align-items-center h-100">
@@ -150,7 +151,8 @@ style="background-image: linear-gradient(135deg, #8b98fc 30%,  #764ba2 100% 100%
 
     var page = 1; // untuk mengatur page
     
-    searchData(page); // function untuk load data pertama
+    // searchData(page); // function untuk load data pertama
+    $('#rekomendasi_kado').hide();
 
     $("#view_more").click(function() { // function untuk melakukan klik view more
       page++;
@@ -219,7 +221,7 @@ style="background-image: linear-gradient(135deg, #8b98fc 30%,  #764ba2 100% 100%
   }
 
   function searchData(page,more){
-
+    $('#rekomendasi_kado').show();
     showLoading();
     var kategori = $('#frm_search [name="kategori"]').val();
     var gender = $('#frm_search [name="gender"]').val();

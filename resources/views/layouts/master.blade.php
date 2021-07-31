@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,7 @@
     <link href="{{asset('css/page.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link href="{{asset('css/loading.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+    
 
     @yield('css')
 </head>
@@ -25,7 +24,6 @@
               <button class="navbar-toggler" type="button"><span class="navbar-toggler-icon"></span></button>
               <a class="navbar-brand" href="{{url('/')}}">
                 <img class="logo-dark" style="width: 130px;" src="{{asset('img/logo/zonakado1.png')}}" alt="logo">
-                <img class="logo-light" style="width: 130px;" src="{{asset('img/logo/zonakado1.png')}}" alt="logo">
               </a>
             </div>
 
@@ -80,9 +78,9 @@
     
                 <div class="col-md-6">
                   <div class="nav nav-bold nav-uppercase justify-content-center justify-content-md-end">
-                    <a class="nav-link" href="#">About</a>
-                    <a class="nav-link" href="#">Blog</a>
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="{{url('/blog')}}">Blog</a>
+                    <a class="nav-link" href="{{url('/about')}}">About</a>
+                    <a class="nav-link" href="{{url('/contact')}}">Contact</a>
                   </div>
                 </div>
     
@@ -123,7 +121,7 @@
     <script src="{{asset('js/helper.js')}}"></script>
     <script src="{{asset('js/page.min.js')}}"></script>
     <script src="{{asset('js/script.js')}}"></script>
-    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+    @yield('js')
 
     <script>
       $(document).ready(function(){
@@ -132,6 +130,6 @@
 
     </script>
 
-    @yield('js')
+   
 </body>
 </html>

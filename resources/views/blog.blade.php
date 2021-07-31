@@ -5,6 +5,7 @@
 @endsection
 
 @section('css')
+    <link rel="canonical" href="{{url('/blog')}}" />
     <meta property="og:title" content="{{config('app.name')}} Blog - Rekomendasi Kado, Inspirasi Kado">
     <meta property="og:description" content="Dapatkan berbagai rekomendasi kado hanya untuk orang tersayang anda! {{'- '.config('app.name')}}">
     <meta property="og:image" content="{{asset('img/logo/favicon.png')}}">
@@ -56,7 +57,7 @@
                 {{-- <p><a class="text-uppercase small-4 ls-2 fw-600" href="#">Marketing</a></p> --}}
                 <h2 class="fw-200"><a href="{{url('blog'.'/'.$last_blog->id.'/'.$last_blog->slug)}}">{{$last_blog->title}}</a></h2>
                 <br>
-                <a class="btn btn-outline-light" href="{{url('blog'.'/'.$last_blog->id.'/'.$last_blog->slug)}}">Read more</a>
+                <a class="btn btn-outline-light" href="{{url('blog'.'/'.$last_blog->id.'/'.$last_blog->slug)}}">Read Blog</a>
               </div>
             </div>
           </div>
@@ -67,7 +68,7 @@
             @if($q)
               <div class="col-md-6">
                 <div class="card border hover-shadow-6 mb-6 d-block">
-                  <a href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}"><img class="card-img-top" src="{{$row->thumbnail}}" alt="Card image cap" style=" max-height: 250px;
+                  <a href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}"><img class="card-img-top" src="{{$row->thumbnail}}" alt="{{$row->title}}" style=" max-height: 250px;
                     object-fit: cover;
                     object-position: center;"></a>
                   <div class="p-6 text-center">
@@ -126,7 +127,7 @@
           <h6 class="sidebar-title">Baca Juga!</h6>
           @foreach($randomPost as $row)
             <a class="media text-default align-items-center mb-5" href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}">
-              <img class="rounded w-65px mr-4" src="{{asset($row->thumbnail)}}">
+              <img class="rounded w-65px mr-4" src="{{asset($row->thumbnail)}}" alt="{{$row->title}}">
               <p class="media-body small-2 lh-4 mb-0">{{$row->title}}</p>
             </a>
           @endforeach

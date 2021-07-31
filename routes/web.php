@@ -25,16 +25,22 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/rekomendasi-kado-{group}/{id}/{slug}', function () { return view('rekomendasi_kado'); });
 
+    //Related product
     Route::get('/inspirasi-kado-{group}', 'App\Http\Controllers\KadoController@relatedKado');
     Route::post('/search_inspirasi_kado', 'App\Http\Controllers\KadoController@searchRelatedKado');
 
+    //Blog
     Route::get('/blog', 'App\Http\Controllers\BlogController@index');
     Route::get('/blog/{id}/{slug}', 'App\Http\Controllers\BlogController@detailBlog');
 
+    //About
+    Route::get('/about', 'App\Http\Controllers\AboutController@index');
+    Route::get('/contact', 'App\Http\Controllers\AboutController@contact');
+
     //Sitemap
-    Route::get('/sitemap', 'App\Http\Controllers\SitemapController@index');
-    Route::get('/sitemap/blog', 'App\Http\Controllers\SitemapController@blog');
-    Route::get('/sitemap/kado', 'App\Http\Controllers\SitemapController@kado');
+    Route::get('/sitemap.xml', 'App\Http\Controllers\SitemapController@index');
+    Route::get('/sitemap/blog.xml', 'App\Http\Controllers\SitemapController@blog');
+    Route::get('/sitemap/kado.xml', 'App\Http\Controllers\SitemapController@kado');
 
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/logout', 'App\Http\Controllers\UserController@logout');
