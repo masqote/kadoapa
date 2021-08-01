@@ -14,7 +14,7 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
 <!--  Open Graph Tags -->
 <meta property="og:title" content="Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.name')}}">
 <meta property="og:description" content="Kado {{ ucwords(str_replace("-", " ", request()->slug))}} Adalah Kado Yang Cocok Untuk Orang Tersayang Anda - Rekomendasi Kado {{ ucwords(str_replace("-", " ", request()->group))}} {{'- '.config('app.name')}}">
-<meta property="og:image" content="{{asset('img/logo/favicon.png')}}">
+<meta property="og:image" content="{{asset('img/default/gift-1.jpg')}}">
 <meta property="og:url" content="{{url('rekomendasi-kado-'.request()->group.'/'.request()->id.'/'.request()->slug)}}">
 <meta property="og:locale" content="id_ID" />
 <meta name="twitter:card" content="summary_large_image">

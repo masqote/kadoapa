@@ -21,10 +21,15 @@ class SitemapController extends Controller
         ->orderBy('created_at', 'DESC')
         ->first();
 
+        $group = DB::table('kado_groups')
+        ->orderBy('created_at', 'DESC')
+        ->first();
+
         return response()->view('sitemap.index', [
             'blog' => $blog,
             'kado' => $kado,
             'kategori' => $kategori,
+            'kado_group' => $group,
         ])->header('Content-Type', 'text/xml');
     }
 
@@ -64,13 +69,27 @@ class SitemapController extends Controller
   
         }
 
+        return response()->view('sitemap.kado', [
+            'kado' => $qData,
+            'last_kado' => $lastKado,
+        ])->header('Content-Type', 'text/xml');
+    }
+
+    public function kadoGroup(){
         $group = DB::table('kado_groups as a')
         ->get();
-// dd($qData);
-    return response()->view('sitemap.kado', [
-        'kado' => $qData,
-        'last_kado' => $lastKado,
-        'list_group' => $group,
-    ])->header('Content-Type', 'text/xml');
+
+        return response()->view('sitemap.kado_group', [
+            'list_group' => $group,
+        ])->header('Content-Type', 'text/xml');
+    }
+
+    public function kadoKategori(){
+        $kategori = DB::table('kategori as a')
+        ->get();
+        
+        return response()->view('sitemap.kado_kategori', [
+            'kategori' => $kategori,
+        ])->header('Content-Type', 'text/xml');
     }
 }

@@ -162,11 +162,17 @@ function searchData(page){
               
               var result = data.result;
               var tbl = '';
-              
+              var action = '';
               if (result.data.length > 0) {
                 var no = result.from;
-
+                
                 $.each(result.data,function(x,y){
+                  if (y.fg_aktif === 1) {
+                    action = `<button class="btn btn-danger" onclick="deleteData(`+y.id+`)">Delete</button>`
+                  }else{
+                    action = `<button class="btn btn-success" onclick="aktifkanData(`+y.id+`)">Aktifkan</button>`
+                  }
+
                   tbl += `
                   <tr>
                     <td>`+no+++`</td>
@@ -175,7 +181,7 @@ function searchData(page){
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
                         <a class="btn btn-primary" href="{{url('master/edit_kado/`+y.id+`')}}" style="color:white;" target="_blank">Edit</a>
-                        <button class="btn btn-danger" onclick="deleteData(`+y.id+`)">Delete</button>
+                        `+action+`
                       </div>
                     </td>
                   </tr>
@@ -219,6 +225,84 @@ function addProcess(){
             complete : function(xhr,status){
               closeLoading();
             }
+        });
+}
+
+function deleteData(id) {
+        swal({
+          title: "Are you sure?", 
+          text: "Are you sure that you want to delete this data?", 
+          type: "warning",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          confirmButtonText: "Yes, deleted it!",
+          confirmButtonColor: "#ec6c62"
+        }, function() {
+          $.ajax({
+                type 	: 'POST',
+                url: "{{url('/master/delete_kado')}}",
+                headers	: { 
+                  "X-CSRF-TOKEN": "{{ csrf_token() }}" 
+                  },
+                dataType: "json",
+                data: {
+                  'id':id,
+                },
+                success: function( data ) {
+                  searchData();
+                },
+                error : function(xhr) {
+                
+                },
+                complete : function(xhr,status){
+               
+                }
+            })
+          .done(function(data) {
+            swal("Canceled!", "Your data successfully deleted!", "success");
+          })
+          .error(function(data) {
+            swal("Oops", "We couldn't connect to the server!", "error");
+          });
+        });
+}
+
+function aktifkanData(id) {
+        swal({
+          title: "Are you sure?", 
+          text: "Are you sure that you want to activated this data?", 
+          type: "warning",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          confirmButtonText: "Yes, Aktifkan!",
+          confirmButtonColor: "#00FF00"
+        }, function() {
+          $.ajax({
+                type 	: 'POST',
+                url: "{{url('/master/aktifkan_kado')}}",
+                headers	: { 
+                  "X-CSRF-TOKEN": "{{ csrf_token() }}" 
+                  },
+                dataType: "json",
+                data: {
+                  'id':id,
+                },
+                success: function( data ) {
+                  searchData();
+                },
+                error : function(xhr) {
+                
+                },
+                complete : function(xhr,status){
+               
+                }
+            })
+          .done(function(data) {
+            swal("Active!", "Your data successfully activated!", "success");
+          })
+          .error(function(data) {
+            swal("Oops", "We couldn't connect to the server!", "error");
+          });
         });
 }
 

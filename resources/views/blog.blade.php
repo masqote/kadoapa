@@ -8,7 +8,7 @@
     <link rel="canonical" href="{{url('/blog')}}" />
     <meta property="og:title" content="{{config('app.name')}} Blog - Rekomendasi Kado, Inspirasi Kado">
     <meta property="og:description" content="Dapatkan berbagai rekomendasi kado hanya untuk orang tersayang anda! {{'- '.config('app.name')}}">
-    <meta property="og:image" content="{{asset('img/logo/favicon.png')}}">
+    <meta property="og:image" content="{{asset('img/default/gift-1.jpg')}}">
     <meta property="og:url" content="{{url('/blog')}}">
     <meta property="og:locale" content="id_ID" />
     <meta name="twitter:card" content="summary_large_image">

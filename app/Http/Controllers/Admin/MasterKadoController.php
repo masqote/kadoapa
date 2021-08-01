@@ -60,6 +60,32 @@ class MasterKadoController extends Controller
     return response()->json($data, http_response_code(200));
   }
 
+  public function deleteData(Request $req){
+    $id = $req->id;
+
+    DB::table('kado')
+        ->where('id', $id)
+        ->update([
+          'fg_aktif' => 0,
+          'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+    return response()->json('Success', http_response_code(200));
+  }
+
+  public function aktifkanData(Request $req){
+    $id = $req->id;
+    
+    DB::table('kado')
+        ->where('id', $id)
+        ->update([
+          'fg_aktif' => 1,
+          'updated_at' => \Carbon\Carbon::now(),
+        ]);
+
+    return response()->json('Success', http_response_code(200));
+  }
+
   public function editData(Request $req, $id){
 
     $qData = DB::table('kado as a')

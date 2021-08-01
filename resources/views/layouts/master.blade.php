@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQJ8QENLXR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-ZQJ8QENLXR');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -32,24 +41,46 @@
 
               <ul class="nav nav-navbar">
                 <a class="nav-link" href="{{url('/')}}">Home</a>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Kategori Kado <span class="arrow"></span></a>
+                  <ul class="nav">
+                    <li class="nav-item">
+                      {{-- <a class="nav-link" href="#">SaaS <span class="arrow"></span></a>
+                      <nav class="nav"> --}}
+                        @foreach($layout_kategori as $row)
+                        @php
+                          $url_kategori = str_replace(" ", "-", $row->nama_kategori);
+                          $url_kategori = strtolower($url_kategori);
+                        @endphp
+                        <a class="nav-link" href="{{url('kado-untuk-'.$url_kategori.'')}}">{{$row->nama_kategori}}</a>
+                        @endforeach
+                      {{-- </nav> --}}
+                    </li>
+                  </ul>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Group Kado <span class="arrow"></span></a>
+                  <ul class="nav">
+                    <li class="nav-item">
+                      {{-- <a class="nav-link" href="#">SaaS <span class="arrow"></span></a>
+                      <nav class="nav"> --}}
+                        @foreach($layout_group as $row)
+                        @php
+                          $url_group = str_replace(" ", "-", $row->nama_group);
+                          $url_group = strtolower($url_group);
+                        @endphp
+                        <a class="nav-link" href="{{url('inspirasi-kado-'.$url_group.'')}}">{{$row->nama_group}}</a>
+                        @endforeach
+                      {{-- </nav> --}}
+                    </li>
+                  </ul>
+                </li>
+
                 <a class="nav-link" href="{{url('/blog')}}">Blog</a>
                 <a class="nav-link" href="{{url('/about')}}">About</a>
                 <a class="nav-link" href="{{url('/contact')}}">Contact</a>
-                {{-- <li class="nav-item">
-                  <a class="nav-link" href="#">Demos <span class="arrow"></span></a>
-                  <ul class="nav">
-
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">SaaS <span class="arrow"></span></a>
-                      <nav class="nav">
-                        <a class="nav-link" href="../demo/saas-1.html">SaaS 1</a>
-                        <a class="nav-link" href="../demo/saas-2.html">SaaS 2</a>
-                        <a class="nav-link" href="../demo/saas-3.html">SaaS 3</a>
-                        <a class="nav-link" href="../demo/saas-4.html">SaaS 4</a>
-                      </nav>
-                    </li>
-                  </ul>
-                </li> --}}
+                
 
               </ul>
             </section>

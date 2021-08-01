@@ -1,20 +1,20 @@
 @extends('layouts.master')
 
 @section('title')
-Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}
+Kado Untuk {{$kategori->nama_kategori}} {{'- '.config('app.name')}}
 @endsection
 
 @section('css')
-    <link rel="canonical" href="{{url('/inspirasi-kado-'.request()->group.'')}}" />
-    <meta property="og:title" content="Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}">
-    <meta property="og:description" content="Dapatkan berbagai inspirasi kado pernikahan, anniversary, wisuda atau kado untuk sahabat, suami,istri, ayah, ibu, atau apapun itu hanya di {{' '.config('app.name')}}">
+    <link rel="canonical" href="{{url('/kado-untuk-'.$url_kategori.'')}}" />
+    <meta property="og:title" content="Kado Untuk {{$kategori->nama_kategori}} {{'- '.config('app.name')}}">
+    <meta property="og:description" content="Lagi cari kado untuk apa ? Pernikahan, Anniversary, Persalinan, Wisuda, Orang Tua Ataupun Untuk Anak, Temukan Inspirasi Kado di {{''.config('app.name')}}">
     <meta property="og:image" content="{{asset('img/default/gift-1.jpg')}}">
-    <meta property="og:url" content="{{url('/inspirasi-kado-'.request()->group.'')}}">
+    <meta property="og:url" content="{{url('/kado-untuk-'.$url_kategori.'')}}">
     <meta property="og:locale" content="id_ID" />
     <meta name="twitter:card" content="summary_large_image">
 
-    <meta name="description" content="Dapatkan berbagai inspirasi kado pernikahan, anniversary, wisuda atau kado untuk sahabat, suami,istri, ayah, ibu, atau apapun itu hanya di {{' '.config('app.name')}}">
-    <meta name="keywords" content="inspirasi kado pernikahan, kado {{$group->nama_group}}, inspirasi kado untuk sahabat, inspirasi kado anniversary, inspirasi kado untuk cowok, inspirasi kado untuk guru, inspirasi kado untuk anak">
+    <meta name="description" content="Lagi cari kado untuk apa ? Pernikahan, Anniversary, Persalinan, Wisuda, Orang Tua Ataupun Untuk Anak, Temukan Inspirasi Kado di {{''.config('app.name')}}">
+    <meta name="keywords" content="kado untuk {{$kategori->nama_kategori}}, Kado {{$kategori->nama_kategori}} yang berkesan, Kado {{$kategori->nama_kategori}} yang unik, Kado {{$kategori->nama_kategori}} terbaik, kado {{$kategori->nama_kategori}} yang bermanfaat">
 @endsection
 
 @section('header')
@@ -24,7 +24,7 @@ Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}
     <div class="row">
       <div class="col-md-8 mx-auto">
 
-       <h1>Inspirasi Kado <span id="nama_group">{{$group->nama_group}}</span></h1>
+       <h1>Kado Untuk <span id="nama_kategori">{{$kategori->nama_kategori}}</span></h1>
         
 
       </div>
@@ -68,10 +68,10 @@ Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}
             <div class="col">
               <div class="form-group">
                 <label class="nav justify-content-center mb-2">Kategori</label>
-                <select name="kategori" class="form-control" id="kategori">
+                <select name="group" class="form-control" id="group">
                   <option value="">Semua</option>
-                  @foreach($kategori as $row)
-                    <option value="{{$row->id}}">{{$row->nama_kategori}}</option>
+                  @foreach($group as $row)
+                    <option value="{{$row->id}}">{{$row->nama_group}}</option>
                   @endforeach
                 </select>
               </div>
@@ -90,10 +90,13 @@ Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}
 
       <div class="row gap-y gap-2" id="data_box">
         @foreach($result as $row)
-        
+          @php
+            $url_kategori = str_replace(" ", "-", $row->nama_group);
+            $url_kategori = strtolower($url_kategori);
+          @endphp
           <div class="col-12 col-lg-4 col-md-6" > 
-            
-            <a href="{{url('rekomendasi-kado-'.$url_group.'/'.$row->id.'/'.$row->slug)}}">
+            <input type="hidden" id="nama_group" value="{{$url_kategori}}">
+            <a href="{{url('rekomendasi-kado-'.$url_kategori.'/'.$row->id.'/'.$row->slug)}}">
               <div class="card d-block shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="card-img-top">
                   <img src="{{asset($row->thumbnail)}}"  alt="Card image cap">
@@ -145,8 +148,8 @@ Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}
 <script>
 
 $(document).ready(function(){
+    var page = 1;
 
-  var page = 1;
     $("#view_more").click(function() { // function untuk melakukan klik view more
       page++;
       var more = 1;
@@ -175,8 +178,8 @@ $(document).ready(function(){
       page = 1;
       searchData(page);
     });
-
-    $('#kategori').change(function() { // function untuk melakukan filter harga
+  
+  $('#group').change(function() { // function untuk melakukan filter harga
       page = 1;
       searchData(page);
     });
@@ -198,29 +201,33 @@ function validate_price(page){
 }
 
 function searchData(page,more){
-  console.log(page);
+  
   showLoading();
   var budget = $('[name="budget"]').val();
   var budget_end = $('[name="budget_end"]').val();
   var sort_harga = $('#sort_harga').val();
-  var nama_group = $('#nama_group').text();
-  var id_kategori = $('#kategori').val();
+  var nama_group = $('#nama_group').val();
+  var nama_kategori = $('#nama_kategori').text();
+  var id_group = $('#group').val();
 
   $.ajax({
       type 	: 'POST',
-      url: "{{url('/search_inspirasi_kado?page=')}}" + page,
+      url: "{{url('/search_kado_untuk?page=')}}" + page,
       headers	: { "X-CSRF-TOKEN": "{{ csrf_token() }}" },
       dataType: "json",
       data: {
         'nama_group': nama_group,
+        'nama_kategori': nama_kategori,
         'budget': budget,
         'budget_end': budget_end,
         'sort_harga': sort_harga,
-        'id_kategori': id_kategori,
+        'id_group': id_group,
       },
       success: function( data ) {
+        
         var tbl = '';
         var kado = data.kado.data;
+       
         var thumbnail = "{{asset('img/default/gift-1.jpg')}}";
       
         if(kado.length > 0){
@@ -235,7 +242,6 @@ function searchData(page,more){
 
           
           $.each(kado,function(x,y){
-
             var kategori = '';
             var gender = '';
 

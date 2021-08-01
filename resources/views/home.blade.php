@@ -9,7 +9,7 @@
 <!--  Open Graph Tags -->
 <meta property="og:title" content="Bingung Cari Kado? Tenang! ada{{' '.config('app.name')}}">
 <meta property="og:description" content="Kami akan membantu dan merekomendasikan anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
-<meta property="og:image" content="{{asset('img/logo/favicon.png')}}">
+<meta property="og:image" content="{{asset('img/default/gift-1.jpg')}}">
 <meta property="og:url" content="{{url('/')}}">
 <meta property="og:locale" content="id_ID" />
 <meta name="twitter:card" content="summary_large_image">

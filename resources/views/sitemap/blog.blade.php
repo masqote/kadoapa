@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   @foreach ($blog as $row)
     <url>
-      <loc>{{ url('/blog'.'/'.$row->slug) }}</loc>
+      <loc>{{ url('/blog'.'/'.$row->id.'/'.$row->slug) }}</loc>
       <lastmod>{{ Carbon\Carbon::parse($row->created_at)->toAtomString() }}</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.6</priority>

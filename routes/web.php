@@ -25,9 +25,13 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/rekomendasi-kado-{group}/{id}/{slug}', function () { return view('rekomendasi_kado'); });
 
-    //Related product
+    //Related kado-GROUP
     Route::get('/inspirasi-kado-{group}', 'App\Http\Controllers\KadoController@relatedKado');
     Route::post('/search_inspirasi_kado', 'App\Http\Controllers\KadoController@searchRelatedKado');
+
+    // :Kado Untuk-KATEGORI
+    Route::get('/kado-untuk-{kategori}', 'App\Http\Controllers\KadoController@kategoriKado');
+    Route::post('/search_kado_untuk', 'App\Http\Controllers\KadoController@searchKategoriKado');
 
     //Blog
     Route::get('/blog', 'App\Http\Controllers\BlogController@index');
@@ -41,6 +45,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/sitemap.xml', 'App\Http\Controllers\SitemapController@index');
     Route::get('/sitemap/blog.xml', 'App\Http\Controllers\SitemapController@blog');
     Route::get('/sitemap/kado.xml', 'App\Http\Controllers\SitemapController@kado');
+    Route::get('/sitemap/kado-group.xml', 'App\Http\Controllers\SitemapController@kadoGroup');
+    Route::get('/sitemap/kado-kategori.xml', 'App\Http\Controllers\SitemapController@kadoKategori');
 
     Route::group(['middleware' => 'auth'], function(){
         Route::get('/logout', 'App\Http\Controllers\UserController@logout');
@@ -66,6 +72,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('/master/kado', 'App\Http\Controllers\Admin\MasterKadoController@index');
         Route::post('/master/search_kado', 'App\Http\Controllers\Admin\MasterKadoController@searchData');
         Route::post('/master/add_kado', 'App\Http\Controllers\Admin\MasterKadoController@addData');
+        Route::post('/master/delete_kado', 'App\Http\Controllers\Admin\MasterKadoController@deleteData');
+        Route::post('/master/aktifkan_kado', 'App\Http\Controllers\Admin\MasterKadoController@aktifkanData');
         Route::get('/master/edit_kado/{id}', 'App\Http\Controllers\Admin\MasterKadoController@editData');
         Route::post('/master/update_detail_kado/{id}', 'App\Http\Controllers\Admin\MasterKadoController@updateDetailKado');
         Route::post('/master/add_kategori_kado', 'App\Http\Controllers\Admin\MasterKadoController@addKategoriKado');

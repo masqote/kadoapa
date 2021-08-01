@@ -25,7 +25,7 @@ Master Kategori
         <div class="col-lg-9">
           <div class="form-group pb-1">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" required>
+            <input type="text" class="form-control" id="title" placeholder="Enter title" onchange="generate_slug();" name="title" required>
           </div>
           <div class="form-group pb-1">
             <label for="title">Slug</label>
@@ -87,6 +87,14 @@ Master Kategori
             height: '450px'
         });
   });
+
+  function generate_slug(){
+    var title = $('#title').val();
+    title = title.replace(/\s+/g, '-').toLowerCase();
+
+    $('#slug').val(title);
+    
+  }
 
 </script>
 @endsection
