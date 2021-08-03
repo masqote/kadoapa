@@ -192,6 +192,7 @@ class KadoController extends Controller
       ->where('a.id_kado_group',$qGroup->id)
       ->where('a.fg_aktif',1)
       ->where('x.fg_aktif',1)
+      ->orderBy('a.harga','asc')
       ->paginate(10);
 
       $qKategori = DB::table('kategori as a')
@@ -326,6 +327,7 @@ class KadoController extends Controller
       ->where('c.id',$qKategori->id)
       ->where('a.fg_aktif',1)
       ->where('x.fg_aktif',1)
+      ->orderBy('a.harga','asc')
       ->paginate(10);
       
 
