@@ -130,8 +130,9 @@ Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}
         @if($result->total() > $result->perPage())
         <button type="button" class="btn btn-outline-primary" id="view_more">View More..</button>
         @else
-        <p id="sudah_semua">Sudah semua :)</p>
+        <p >Sudah semua :)</p>
         @endif
+        <p id="sudah_semua">Sudah semua :)</p>
         
       </div>
 
@@ -145,7 +146,7 @@ Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}
 <script>
 
 $(document).ready(function(){
-
+  $("#sudah_semua").hide();
   var page = 1;
     $("#view_more").click(function() { // function untuk melakukan klik view more
       page++;
@@ -198,7 +199,7 @@ function validate_price(page){
 }
 
 function searchData(page,more){
-  console.log(page);
+  
   showLoading();
   var budget = $('[name="budget"]').val();
   var budget_end = $('[name="budget_end"]').val();
