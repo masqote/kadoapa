@@ -113,12 +113,9 @@ class KadoController extends Controller
 
     public function detailKado(Request $req){
 
-
       $id = $req->id;
       $group = $req->group;
       $slug = $req->slug;
-
-      
 
       $kado = DB::table('kado as a')
       ->select('a.*','b.nama_group')
@@ -178,8 +175,7 @@ class KadoController extends Controller
 
 
       // dd($data['group']);
-      
-      return response()->json($data, http_response_code(200));
+      return view('rekomendasi_kado',$data);
       
     }
 

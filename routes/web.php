@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/all_kado', 'App\Http\Controllers\KadoController@index');
     Route::post('/detail_kado/{id}/{slug}', 'App\Http\Controllers\KadoController@detailKado');
 
-    Route::get('/rekomendasi-kado-{group}/{id}/{slug}', function () { return view('rekomendasi_kado'); });
+    Route::get('/rekomendasi-kado-{group}/{id}/{slug}', 'App\Http\Controllers\KadoController@detailkado');
 
     //Related kado-GROUP
     Route::get('/inspirasi-kado-{group}', 'App\Http\Controllers\KadoController@relatedKado');

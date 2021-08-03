@@ -167,7 +167,7 @@ function searchData(page){
                 var no = result.from;
                 
                 $.each(result.data,function(x,y){
-                  if (y.fg_aktif === 1) {
+                  if (y.fg_aktif == 1) {
                     action = `<button class="btn btn-danger" onclick="deleteData(`+y.id+`)">Delete</button>`
                   }else{
                     action = `<button class="btn btn-success" onclick="aktifkanData(`+y.id+`)">Aktifkan</button>`
