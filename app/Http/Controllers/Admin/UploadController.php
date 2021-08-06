@@ -19,7 +19,7 @@ class UploadController extends Controller
           $extension = $request->file('upload')->getClientOriginalExtension();
           $fileName = $fileName.'_'.time().'.'.$extension;
        
-          $request->file('upload')->move(public_path('img/blog'), $fileName);
+          $request->file('upload')->move(base_path('img/blog'), $fileName);
   
           $CKEditorFuncNum = $request->input('CKEditorFuncNum');
           $url = asset('img/blog/'.$fileName); 

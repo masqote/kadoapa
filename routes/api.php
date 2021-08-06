@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::post('/all_kategori', 'App\Http\Controllers\KadoController@kategori');
-// Route::post('/all_kado', 'App\Http\Controllers\KadoController@index');
+Route::post('/all_kategori', 'App\Http\Controllers\API\KadoController@kategori');
+Route::post('/all_kado', 'App\Http\Controllers\API\KadoController@index');
 // Route::post('/detail_kado/{id}/{slug}', 'App\Http\Controllers\KadoController@detailKado');
 
 // Route::post('/login', 'App\Http\Controllers\UserController@login');
