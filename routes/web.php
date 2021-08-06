@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/search_inspirasi_kado', 'App\Http\Controllers\KadoController@searchRelatedKado');
 
     // :Kado Untuk-KATEGORI
-    Route::get('/kado-untuk-{kategori}', 'App\Http\Controllers\KadoController@kategoriKado');
+    Route::get('/kado-{kategori}', 'App\Http\Controllers\KadoController@kategoriKado');
     Route::post('/search_kado_untuk', 'App\Http\Controllers\KadoController@searchKategoriKado');
 
     //Blog

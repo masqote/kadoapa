@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('layouts.master', function($view)
         {
-            $group = DB::table('kado_groups as a')->get();
-            $kategori = DB::table('kategori as a')->get();
+            $group = DB::table('kado_groups as a')->orderBy('a.nama_group')->get();
+            $kategori = DB::table('kategori as a')->orderBy('a.nama_kategori')->get();
             $data['layout_kategori'] = $kategori;
             $data['layout_group'] = $group;
 

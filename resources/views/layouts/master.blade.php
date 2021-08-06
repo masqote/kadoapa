@@ -52,7 +52,7 @@
                           $url_kategori = str_replace(" ", "-", $row->nama_kategori);
                           $url_kategori = strtolower($url_kategori);
                         @endphp
-                        <a class="nav-link" href="{{url('kado-untuk-'.$url_kategori.'')}}">{{$row->nama_kategori}}</a>
+                        <a class="nav-link" href="{{url('kado-'.$url_kategori.'')}}">{{$row->nama_kategori}}</a>
                         @endforeach
                       {{-- </nav> --}}
                     </li>
@@ -60,7 +60,7 @@
                 </li>
                 
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Group Kado <span class="arrow"></span></a>
+                  <a class="nav-link" href="#">Inspirasi Kado <span class="arrow"></span></a>
                   <ul class="nav">
                     <li class="nav-item">
                       {{-- <a class="nav-link" href="#">SaaS <span class="arrow"></span></a>

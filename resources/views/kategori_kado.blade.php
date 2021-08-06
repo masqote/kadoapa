@@ -1,20 +1,20 @@
 @extends('layouts.master')
 
 @section('title')
-Kado Untuk {{$kategori->nama_kategori}} {{'- '.config('app.name')}}
+Kado {{$kategori->nama_kategori}} {{'- '.config('app.name')}}
 @endsection
 
 @section('css')
-    <link rel="canonical" href="{{url('/kado-untuk-'.$url_kategori.'')}}" />
-    <meta property="og:title" content="Kado Untuk {{$kategori->nama_kategori}} {{'- '.config('app.name')}}">
-    <meta property="og:description" content="Lagi cari kado untuk apa ? Pernikahan, Anniversary, Persalinan, Wisuda, Orang Tua Ataupun Untuk Anak, Temukan Inspirasi Kado di {{''.config('app.name')}}">
+    <link rel="canonical" href="{{url('/kado-'.$url_kategori.'')}}" />
+    <meta property="og:title" content="Kado {{$kategori->nama_kategori}} {{'- '.config('app.name')}}">
+    <meta property="og:description" content="Lagi cari kado {{$kategori->nama_kategori}} ? Kami akan merekomendasikan kado yang cocok untuk {{$kategori->nama_kategori}} orang tersayang anda {{'- '.config('app.name')}}">
     <meta property="og:image" content="{{asset('img/default/gift-1.jpg')}}">
-    <meta property="og:url" content="{{url('/kado-untuk-'.$url_kategori.'')}}">
+    <meta property="og:url" content="{{url('/kado-'.$url_kategori.'')}}">
     <meta property="og:locale" content="id_ID" />
     <meta name="twitter:card" content="summary_large_image">
 
-    <meta name="description" content="Lagi cari kado untuk apa ? Pernikahan, Anniversary, Persalinan, Wisuda, Orang Tua Ataupun Untuk Anak, Temukan Inspirasi Kado di {{''.config('app.name')}}">
-    <meta name="keywords" content="kado untuk {{$kategori->nama_kategori}}, Kado {{$kategori->nama_kategori}} yang berkesan, Kado {{$kategori->nama_kategori}} yang unik, Kado {{$kategori->nama_kategori}} terbaik, kado {{$kategori->nama_kategori}} yang bermanfaat">
+    <meta name="description" content="Lagi cari kado {{$kategori->nama_kategori}} ? Kami akan merekomendasikan kado yang cocok untuk {{$kategori->nama_kategori}} orang tersayang anda {{'- '.config('app.name')}}">
+    <meta name="keywords" content="kado {{$kategori->nama_kategori}}, kado untuk {{$kategori->nama_kategori}}, Kado {{$kategori->nama_kategori}} yang berkesan, Kado {{$kategori->nama_kategori}} yang unik, Kado {{$kategori->nama_kategori}} terbaik, kado {{$kategori->nama_kategori}} yang bermanfaat">
 @endsection
 
 @section('header')
@@ -24,7 +24,7 @@ Kado Untuk {{$kategori->nama_kategori}} {{'- '.config('app.name')}}
     <div class="row">
       <div class="col-md-8 mx-auto">
 
-       <h1>Kado Untuk <span id="nama_kategori">{{$kategori->nama_kategori}}</span></h1>
+       <h1>Kado <span id="nama_kategori">{{$kategori->nama_kategori}}</span></h1>
         
 
       </div>

@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <meta name="description" content="Kami akan membantu dan merekomendasikan anda untuk menemukan kado yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
-<meta name="keywords" content="Kado untuk cowok yang unik, Kado untuk cewek yang unik, Kado untuk sahabat yang berkesan, Kado anniversary untuk orang tua, Kado untuk pernikahan sahabat, Kado ulang tahun yang unik, Kado wisuda untuk cewek, Kado wisuda untuk cowok, Kado untuk anak yang bagus {{'- '.config('app.name')}}">
+<meta name="keywords" content="kado untuk sahabat, kado untuk ibu, kado untuk ayah, kado untuk anak, kado untuk cowok, kado untuk cewek, kado untuk pernikahan, kado untuk anniversary, kado untuk perpisahan, kado untuk wisuda, kado untuk ulang tahun, kado untuk persalinan">
 @endsection
 
 @section('header')
@@ -288,7 +288,7 @@ style="background: linear-gradient(135deg, #8b98fc 40%,  #764ba2 100% 100%);">
                 <div class="col-12 col-lg-4 col-md-6" >
                   
                   <a href="{{url('rekomendasi-kado-`+nama_group+`/`+y.id+`/`+y.slug+`')}}" target="_blank">
-                    <div class="card d-block shadow-lg p-3 mb-5 bg-white rounded hover-move-up" style="margin-top:-20px;">
+                    <div class="card d-block shadow-lg p-3 mb-5 bg-white rounded">
                       <div class="card-img-top">
                         <img src="{{asset('`+y.foto_thumbnail+`')}}"  alt="Card image cap">
                         <div class="badges">

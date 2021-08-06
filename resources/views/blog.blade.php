@@ -14,7 +14,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <meta name="description" content="Dapatkan berbagai rekomendasi kado, hanya untuk orang tersayang anda! {{'- '.config('app.name')}}">
-    <meta name="keywords" content="Rekomendasi kado untuk cowok cuek, Rekomendasi kado untuk sahabat Kado yang cocok untuk pernikahan, Blog tentang kado">
+    <meta name="keywords" content="Blog tentang kado, Rekomendasi kado, Inspirasi Kado">
 @endsection
 
 @section('header')

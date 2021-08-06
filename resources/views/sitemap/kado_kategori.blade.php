@@ -6,7 +6,7 @@
   $kategori = strtolower($kategori);
 @endphp
 <url>
-  <loc>{{ url('/kado-untuk-'.$kategori) }}</loc>
+  <loc>{{ url('/kado-'.$kategori) }}</loc>
   <lastmod>{{ Carbon\Carbon::parse($row->created_at)->toAtomString() }}</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>

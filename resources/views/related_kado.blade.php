@@ -7,14 +7,14 @@ Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}
 @section('css')
     <link rel="canonical" href="{{url('/inspirasi-kado-'.request()->group.'')}}" />
     <meta property="og:title" content="Inspirasi Kado {{$group->nama_group}} {{'- '.config('app.name')}}">
-    <meta property="og:description" content="Dapatkan berbagai inspirasi kado pernikahan, anniversary, wisuda atau kado untuk sahabat, suami,istri, ayah, ibu, atau apapun itu hanya di {{' '.config('app.name')}}">
+    <meta property="og:description" content="Lagi cari kado {{$group->nama_group}} ? Berikut kami berikan inspirasi kado {{$group->nama_group}} yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
     <meta property="og:image" content="{{asset('img/default/gift-1.jpg')}}">
     <meta property="og:url" content="{{url('/inspirasi-kado-'.request()->group.'')}}">
     <meta property="og:locale" content="id_ID" />
     <meta name="twitter:card" content="summary_large_image">
 
-    <meta name="description" content="Dapatkan berbagai inspirasi kado pernikahan, anniversary, wisuda atau kado untuk sahabat, suami,istri, ayah, ibu, atau apapun itu hanya di {{' '.config('app.name')}}">
-    <meta name="keywords" content="inspirasi kado pernikahan, kado {{$group->nama_group}}, inspirasi kado untuk sahabat, inspirasi kado anniversary, inspirasi kado untuk cowok, inspirasi kado untuk guru, inspirasi kado untuk anak">
+    <meta name="description" content="Lagi cari kado {{$group->nama_group}} ? Berikut kami berikan inspirasi kado {{$group->nama_group}} yang cocok untuk orang tersayang anda {{'- '.config('app.name')}}">
+    <meta name="keywords" content="kado {{$group->nama_group}}, inspirasi kado {{$group->nama_group}}, kado {{$group->nama_group}} yang bermanfaat">
 @endsection
 
 @section('header')
