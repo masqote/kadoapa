@@ -126,6 +126,8 @@
 
 <!--  Open Graph Tags -->
 <link rel="canonical" href="{{url('blog'.'/'.request()->id.'/'.request()->slug )}}" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="{{config('app.name')}} Blog" />
 <meta property="og:title" content="{{$blog->title}} {{'- '.config('app.name')}}">
 <meta property="og:description" content="{{$blog->description}} {{'- '.config('app.name')}}">
 <meta property="og:image" content="{{asset($blog->thumbnail)}}">
