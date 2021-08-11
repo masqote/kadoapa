@@ -38,8 +38,13 @@ class SitemapController extends Controller
     $blog = DB::table('blog_post')
     ->get();
 
+    $lastBlog = DB::table('blog_post')
+    ->orderBy('id','desc')
+    ->first();
+
     return response()->view('sitemap.blog', [
         'blog' => $blog,
+        'lastBlog' => $lastBlog,
     ])->header('Content-Type', 'text/xml');
     }
 

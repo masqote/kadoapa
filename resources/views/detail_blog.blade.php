@@ -16,6 +16,112 @@
     max-width: 100%;
     height: auto !important;
   }
+
+  .product-price{
+    font-weight: bold;
+  }
+  .owl-carousel .card{
+    width: 180px; 
+    height:100%;
+  }
+  
+  .share_button{
+    position: fixed;
+    width: 55px;
+    height: 55px;
+    bottom: 80px;
+    right: 30px;
+    background-color:#F33;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    /* box-shadow: 2px 2px 3px #999; */
+    z-index:1000;
+    /* animation: bot-to-top 2s ease-out; */
+  }
+
+
+  .btn-share-1{
+    position:fixed;
+    right:30px;
+    padding-bottom:20px;
+    bottom:100px;
+    z-index:100;
+  }
+
+  .btn-share-2{
+    list-style:none;
+    margin-bottom:10px;
+  }
+
+  .btn-share-1 .btn-share-2 a{
+    background-color:#F33;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    /* box-shadow: 2px 2px 3px #999; */
+    width:55px;
+    height:55px;
+    display:block;
+  }
+
+  .btn-share-1:hover{
+    visibility:visible!important;
+    opacity:1!important;
+  }
+
+
+  .my-float{
+    font-size:24px;
+    margin-top:15px;
+  }
+
+  a#menu-share + ul{
+    visibility: hidden;
+  }
+
+  a#menu-share:hover + ul{
+    visibility: visible;
+    animation: scale-in 0.5s;
+  }
+
+  a#menu-share i{
+    animation: rotate-in 0.5s;
+  }
+
+  a#menu-share:hover > i{
+    animation: rotate-out 0.5s;
+  }
+
+  @keyframes bot-to-top {
+      0%   {bottom:-40px}
+      50%  {bottom:40px}
+  }
+
+  @keyframes scale-in {
+      from {transform: scale(0);opacity: 0;}
+      to {transform: scale(1);opacity: 1;}
+  }
+
+  @keyframes rotate-in {
+      from {transform: rotate(0deg);}
+      to {transform: rotate(360deg);}
+  }
+
+  @keyframes rotate-out {
+      from {transform: rotate(360deg);}
+      to {transform: rotate(0deg);}
+  }
+
+  @media (max-width: 991.98px) {
+    .share_button{
+      right: 15px;
+    }
+
+    .btn-share-1{
+      right: 15px;
+    }
+  }
 </style>
 
 <!--  Open Graph Tags -->
@@ -33,6 +139,21 @@
 @endsection
 
 @section('content')
+<a href="#" class="share_button" id="menu-share" data-toggle="tooltip" data-placement="left" title="Thanks for share :)">
+  <i class="fa fa-share-alt my-float"></i>
+  </a>
+  <ul class="btn-share-1">
+  <li class="btn-share-2"><a href="https://api.whatsapp.com/send?text=Kado {{$blog->title}} {{Request::url()}}">
+  <i class="fa fa-whatsapp my-float"></i>
+  </a></li>
+  <li class="btn-share-2"><a href="https://www.facebook.com/sharer.php?u={{Request::url()}}">
+  <i class="fa fa-facebook my-float"></i>
+  </a></li>
+  <li class="btn-share-2"><a href="https://twitter.com/share?url={{Request::url()}}&text={{$blog->title}}">
+  <i class="fa fa-twitter my-float"></i>
+  </a></li>
+  </ul>
+
 <div class="section">
   <div class="container">
     
@@ -46,9 +167,10 @@
 
       <div class="text-center my-4">
         <img class="rounded-md" src="{{asset($blog->thumbnail)}}" alt="...">
+        <span class="header"></span>
       </div>
       <hr>
-    
+      
       <div class="row gap-y">
 
         <div class="col-md-8 col-xl-9">

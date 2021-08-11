@@ -180,7 +180,7 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
       <div class="col-md-8">
 
         <h1 class="display-4" id="judul_kado">{{$kado->nama_kado}}</h1>
-        <p>Cocok untuk kado orang tersayang anda.</p>
+        {{-- <p>Cocok untuk kado orang tersayang anda.</p> --}}
         <div>
           Kategori : 
           <span id="nama_kategori">
