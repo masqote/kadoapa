@@ -131,6 +131,7 @@ $(document).ready(function(){
                     <td>`+y.title+`</td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-info" href="{{url('blog/`+y.id+`/`+y.slug+`')}}" target="_blank">View</a>
                         <a class="btn btn-primary" href="{{url('master/edit_blog/`+y.id+`')}}">Edit</a>
                         <a class="btn btn-danger" href="{{url('master/nonaktif_blog/`+y.id+`')}}">Nonaktifkan</a>
                       </div>

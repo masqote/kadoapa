@@ -138,4 +138,28 @@ class MasterBlogController extends Controller
 
    }
 
+   public function searchSeoBlog(Request $req){
+    $search_blog = $req->search_blog;
+    $id = $req->id;
+
+    $kategori = DB::table('blog_post as a')->where('a.id','<>',$id);
+
+    $kategori->where(function($q) use ($search_blog) {
+      $q->where('a.title','LIKE', '%'.$search_blog.'%')
+                  ->orWhere('a.description', 'LIKE', '%'.$search_blog.'%');
+                  // ->orWhere('a.content', 'LIKE', '%'.$search_blog.'%');
+                  // ->orWhere('a.APPROVE_AT', 'LIKE', '%'.$search_text.'%');
+              });
+      
+    $qData = $kategori->orderBy('a.id','desc')->get();
+
+    if (!$search_blog) {
+      $qData = '';
+    }
+
+    $data['result'] = $qData;
+
+    return response()->json($data, http_response_code(200));
+ }
+
 }

@@ -91,6 +91,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('/master/search_list_blog', 'App\Http\Controllers\Admin\MasterBlogController@searchListBlog');
         Route::get('/master/edit_blog/{id}', 'App\Http\Controllers\Admin\MasterBlogController@editBlog');
         Route::post('/master/update_blog/{id}', 'App\Http\Controllers\Admin\MasterBlogController@updateBlog');
+        Route::post('/master/search_seo_blog', 'App\Http\Controllers\Admin\MasterBlogController@SearchSeoBlog');
 
         // CK Editor
         Route::post('ckeditor/upload', 'App\Http\Controllers\Admin\UploadController@upload')->name('upload.upload');

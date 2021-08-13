@@ -25,7 +25,7 @@ Edit - {{$blog->title}}
         <div class="col-lg-9">
           <div class="form-group pb-1">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" value="{{$blog->title}}" required>
+            <input type="text" class="form-control" id="title" placeholder="Enter title" onchange="generate_slug()" name="title" value="{{$blog->title}}" required>
           </div>
           <div class="form-group pb-1">
             <label for="title">Slug</label>
@@ -53,6 +53,9 @@ Edit - {{$blog->title}}
             <div class="col-6">
               <button type="submit" class="btn btn-primary btn-block">Publish...</button>
             </div>
+            <div class="col-6">
+              <a class="btn btn-info" href="{{url('blog/').'/'.$blog->id.'/'.$blog->slug}}" target="_blank">View Blog</a>
+            </div>
           </div>
           <div class="form-group mb-3">
             <label>Thumbnail</label>
@@ -68,6 +71,14 @@ Edit - {{$blog->title}}
               @endforeach
             </select>
           </div>
+          <hr>
+          <div class="form-group mb-3">
+            <input type="text" name="search_blog" id="search_blog" onkeyup="searchData({{ request()->id }})" class="form-control" placeholder="Search Blog">
+          </div>
+
+          <div class="form-group mb-3" id="list_blog_seo">
+            
+          </div>
           
         </div>
       </div>
@@ -82,6 +93,9 @@ Edit - {{$blog->title}}
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script>
   $(document).ready(function(){
+    $('form input').on('keypress', function(e) {
+        return e.which !== 13;
+    });
     // ClassicEditor.create(document.querySelector('#editor'));
     CKEDITOR.replace('content', {
             filebrowserUploadUrl: "{{ route('upload.upload', ['_token' => csrf_token() ])}}",
@@ -89,6 +103,71 @@ Edit - {{$blog->title}}
             height: '450px'
         });
   });
+
+  function searchData(id){
+    
+       var search_blog = $('#search_blog').val();
+       
+        $.ajax({
+            type 	: 'POST',
+            url: "{{url('/master/search_seo_blog')}}",
+            headers	: { 
+              "X-CSRF-TOKEN": "{{ csrf_token() }}" 
+              },
+            dataType: "json",
+            data: {
+              'search_blog': search_blog,
+              'id': id
+            },
+            success: function( data ) {
+              var result = data.result;
+              var tbl = '';
+
+              $.each(result,function(x,y){
+                  tbl += `
+                  <ul>
+                    <li class="link">
+                      <a href="{{url('/blog/`+y.id+`/`+y.slug+`')}}" target="_blank">`+y.title+` <i class="ya ya-share" aria-hidden="true"></i></a>
+                      <button type="button" class="btn btn-primary copy_text" id="copy_text" href="{{url('/blog/`+y.id+`/`+y.slug+`')}}">Copy link</button>
+                    </li>
+                  </ul>
+                  `;
+                });
+
+
+              $('#list_blog_seo').html(tbl);
+
+              $('.copy_text').click(function (e) {
+                e.preventDefault();
+                var copyText = $(this).attr("href");
+
+                document.addEventListener('copy', function(e) {
+                    e.clipboardData.setData('text/plain', copyText);
+                    e.preventDefault();
+                }, true);
+
+                document.execCommand('copy');  
+                console.log('copied text : ', copyText);
+                alert('copied text: ' + copyText); 
+              });
+              
+            },
+            error : function(xhr) {
+            //  closeLoading();
+            },
+            complete : function(xhr,status){
+              // closeLoading();
+            }
+        });
+  }
+
+  function generate_slug(){
+    var title = $('#title').val();
+    title = title.replace(/\s+/g, '-').toLowerCase();
+
+    $('#slug').val(title);
+    
+  }
 
 </script>
 @endsection
