@@ -19,6 +19,7 @@ class BlogController extends Controller
       ->where('a.title','like',"%$q%")
       ->orWhere('a.description', 'LIKE', "%$q%")
       ->orWhere('a.content', 'LIKE', "%$q%")
+      ->orderBy('a.id','desc')
       ->paginate(10);
       
 

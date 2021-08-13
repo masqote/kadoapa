@@ -67,7 +67,7 @@
             @foreach($blog as $key => $row)
             @if($q)
               <div class="col-md-6">
-                <div class="card border hover-shadow-6 mb-6 d-block">
+                <div class="card border shadow-lg p-3 mb-5 bg-white rounded mb-6 d-block">
                   <a href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}"><img class="card-img-top" src="{{$row->thumbnail}}" alt="{{$row->title}}" style=" max-height: 250px;
                     object-fit: cover;
                     object-position: center;"></a>
@@ -82,7 +82,7 @@
             @else
               @if($row->id != $last_blog->id)
                 <div class="col-md-6">
-                  <div class="card border hover-shadow-6 mb-6 d-block">
+                  <div class="card border shadow-lg p-3 mb-5 bg-white rounded mb-6 d-block">
                     <a href="{{url('blog'.'/'.$row->id.'/'.$row->slug)}}"><img class="card-img-top" src="{{$row->thumbnail}}" alt="Card image cap" style=" max-height: 250px;
                       object-fit: cover;
                       object-position: center;"></a>
