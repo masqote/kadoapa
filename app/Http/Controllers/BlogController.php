@@ -57,7 +57,7 @@ class BlogController extends Controller
       ->leftJoin('kategori as b', 'a.category_id', '=', 'b.id')
       ->where('a.id','<>',$id)
       ->orderBy('a.id','desc')
-      ->limit(3)
+      ->limit(4)
       ->get();
 
       $data['blog'] = $blog;
