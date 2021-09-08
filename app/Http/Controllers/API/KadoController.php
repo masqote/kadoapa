@@ -141,11 +141,22 @@ class KadoController extends Controller
       ->where('b.fg_aktif',1)
       ->first();
 
+      $relatedProduct = DB::table('kado as a')
+      ->select('a.*','b.nama_group','c.foto as thumbnail')
+      ->leftJoin('kado_groups as b', 'a.id_kado_group', '=', 'b.id')
+      ->leftJoin('kado_foto as c', 'a.thumbnail', '=', 'c.id')
+      ->where('a.id_kado_group',$kado->id_kado_group)
+      ->where('a.id','<>',$id)
+      ->inRandomOrder()
+      ->limit(15)
+      ->get();
+
       $kado->lokasi = $lokasi;
       $kado->foto = $foto;
       $kado->video = $video;
-
+      
       $data['kado'] = $kado;
+      $data['related_product'] = $relatedProduct;
 
       return response()->json($data, http_response_code(200));
     }
