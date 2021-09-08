@@ -24,7 +24,7 @@
 
     @yield('css')
 </head>
-<body class="demo-section">
+<body class="body-scrolled navbar-scrolled header-scrolled">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark shadow-sm bg-white rounded" style="top:0;" data-navbar="fixed">
           <div class="container">

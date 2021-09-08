@@ -79,14 +79,13 @@ class KadoController extends Controller
       
       
       if ($sort_harga == 'low') {
-        $sort_harga = 'asc';
-      }else{
-        $sort_harga = 'desc';
+        $qData = $rsData->orderBy('a.harga', 'asc')->paginate(10);
+      }elseif ($sort_harga == 'high') {
+        $qData = $rsData->orderBy('a.harga', 'desc')->paginate(10);
+      }elseif ($sort_harga == 'new') {
+        $qData = $rsData->orderBy('a.created_at', 'desc')->paginate(10);
       }
 
-      // dd($sort_harga);
-
-      $qData = $rsData->orderBy('a.harga', $sort_harga)->paginate(10);
 
       foreach ($qData as $row) {
         $kategori = DB::table('kado_kategori as a')

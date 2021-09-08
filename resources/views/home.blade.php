@@ -87,27 +87,51 @@
 @section('content')
 <!-- Header -->
 
-      <section class="section overflow-hidden" id="rekomendasi_kado">
+      <section class="section bg-gray" id="rekomendasi_kado">
         <div class="container">
-          <header class="section-header">
-            <h2> Rekomendasi Kado</h2>
+          <h2 class="text-center" id="title_detail"></h2>
+          <br>
+          {{-- <header class="section-header">
+            <h2 id="title_detail"></h2>
             <hr>
             <p class="lead">
               Berikut adalah list kado yang kami rekomendasikan untuk orang tersayang anda.
             </p>
-          </header>
+          </header> --}}
+          <h5 class="nav justify-content-center mb-2">Tentukan Budget Sendiri</h5>
+          <div class="input-group">
+            <div class="input-group-append">
+              <span class="input-group-text">Rp. </span>
+            </div>
+            <input type="text" id="budget_filter" name="budget" class="form-control form-control-sm" placeholder="Start" autocomplete="off">
+            <div class="input-group-append">
+              <span class="input-group-text" style="background-color:#c9ccce; color:white; font-weight:700;">~</span>
+            </div>
+            <div class="input-group-append">
+              <span class="input-group-text">Rp. </span>
+            </div>
+            <input type="text" id="budget_end_filter" name="budget_end" class="form-control form-control-sm" placeholder="To" autocomplete="off">
+          </div>
+          <br>
           
             <nav class="nav justify-content-end" style="margin-bottom:30px;">
               <div class="form-group">
-                <h5>Sort by : </h5>
+                <h6>Kategori : </h6>
+                <select class="form-control form-control-sm" name="kategori_filter" style="color:black;" id="sort_kategori">
+                  <option value="">Semua</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <h6>Sort by : </h6>
                 <select class="form-control form-control-sm" style="color:black;" id="sort_harga">
+                  <option value="new">Terbaru</option>
                   <option value="low">Harga terendah</option>
                   <option value="high">Harga tertinggi</option>
                 </select>
               </div>
             </nav>
           
-            <div class="row gap-y gap-2" id="data_box">
+            <div class="row gap-y" id="data_box">
 
 
             </div>
@@ -143,6 +167,7 @@
           });
 
           $('#frm_search [name="kategori"]').html(tbl);
+          $('[name="kategori_filter"]').html(tbl);
 
         },
         error : function(xhr) {
@@ -170,15 +195,47 @@
     }));
 
     $('#budget_end, #budget').on('change',(function (event) { // untuk mengubah format number menjadi otomatis 3 digit ,
-        validate_price();
+      page = 1;
+
+      var budget = $('#budget').val().replace(/,/g, '');
+      var budget_end = $('#budget_end').val().replace(/,/g, '');
+
+      $('#budget_filter').val(budget);
+      $('#budget_end_filter').val(budget_end);
+      validate_price(page);
+    }));
+
+    $('#budget_filter').on('click keyup input paste',(function (event) { // untuk mengubah format number menjadi otomatis 3 digit ,
+        $(this).val(function (index, value) {
+            return value.replace(/(?!\.)\D/g, "").replace(/(?<=\..*)\./g, "").replace(/(?<=\.\d\d).*/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        });
+    }));
+
+    $('#budget_end_filter').on('click keyup input paste',(function (event) { // untuk mengubah format number menjadi otomatis 3 digit ,
+        $(this).val(function (index, value) {
+            return value.replace(/(?!\.)\D/g, "").replace(/(?<=\..*)\./g, "").replace(/(?<=\.\d\d).*/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        });
+    }));
+
+    $('#budget_end_filter, #budget_filter').on('change',(function (event) { // untuk mengubah format number menjadi otomatis 3 digit ,
+      page = 1;
+
+      var budget_filter = $('#budget_filter').val().replace(/,/g, '');
+      var budget_end_filter = $('#budget_end_filter').val().replace(/,/g, '');
+      $('#budget').val(budget_filter);
+      $('#budget_end').val(budget_end_filter);
+
+      validate_price(page);
     }));
 
     $("#sudah_semua").hide(); // untuk hide tulisan sudah semua ketika page terload sampai terakhir
 
     var page = 1; // untuk mengatur page
     
+    
     // searchData(page); // function untuk load data pertama
     $('#rekomendasi_kado').hide();
+
 
     $("#view_more").click(function() { // function untuk melakukan klik view more
       page++;
@@ -186,20 +243,52 @@
       searchData(page,more);
     });
 
-    $("#cari_kado").click(function() { // function untuk melakukan klik view more
+    $("#cari_kado").click(function() { // function untuk melakukan klik cari kado
       page = 1;
+      $('#rekomendasi_kado').show();
       searchData(page);
+      var kategori_selected = $('#frm_search [name="kategori"]').find(":selected").text();
+      var kategori_selected_val = $('#frm_search [name="kategori"]').find(":selected").val();
+
+      if (kategori_selected == 'Semua') {
+        $('#title_detail').text(kategori_selected+' Kado');
+        $('[name="kategori_filter"]').val(kategori_selected_val);
+      }else{
+        $('#title_detail').text('Kado '+kategori_selected);
+        $('[name="kategori_filter"]').val(kategori_selected_val);
+      }
+      
     });
 
     $('#sort_harga').change(function() { // function untuk melakukan filter harga
       page = 1;
       searchData(page);
     });
+
+    $('[name="kategori_filter"]').change(function() { // function untuk melakukan filter harga
+      page = 1;
+      var kategori_selected = $('[name="kategori_filter"]').find(":selected").text();
+      var kategori_selected_val = $('[name="kategori_filter"]').find(":selected").val();
+
+      $('#frm_search [name="kategori"]').val(kategori_selected_val);
+
+      if (kategori_selected == 'Semua') {
+        $('#title_detail').text(kategori_selected+' Kado');
+        $('[name="kategori_filter"]').val(kategori_selected_val);
+      }else{
+        $('#title_detail').text('Kado '+kategori_selected);
+        $('[name="kategori_filter"]').val(kategori_selected_val);
+      }
+
+      searchData(page);
+    });
+
+    
     
   });
 
   
-  function validate_price(){
+  function validate_price(page){
         var from = $('#budget').val().replace(/,/g, '');
         var to =  $('#budget_end').val().replace(/,/g, '');
           if(parseInt(from) > parseInt(to)){
@@ -207,14 +296,14 @@
             alert_msg('Error','Harga akhir harus lebih kecil dari harga awal!',405);
             
           }else{
-          
+            searchData(page);
           }
           
   }
 
 
   function searchData(page,more){
-    $('#rekomendasi_kado').show();
+    
     showLoading();
     var kategori = $('#frm_search [name="kategori"]').val();
     var gender = $('#frm_search [name="gender"]').val();
@@ -278,30 +367,15 @@
 
               tbl += `
               
-                <div class="col-12 col-lg-4 col-md-6" >
-                  
-                  <a href="{{url('rekomendasi-kado-`+nama_group+`/`+y.id+`/`+y.slug+`')}}" target="_blank">
-                    <div class="card d-block shadow-lg p-3 mb-5 bg-white rounded">
-                      <div class="card-img-top">
-                        <img src="{{asset('`+y.foto_thumbnail+`')}}"  alt="Card image cap">
-                        <div class="badges">
-                          `+kategori+`
-                        </div>
-                      </div>
-
-                      <div class="card-body">
-                        <h6 class="mb-0" style="font-weight:700;">`+y.nama_kado+`</h6>
-                        <span class="lead-1 text-primary" style="font-weight:500;">Rp. `+set_currency(y.harga)+`</span>
-                        <br>
-                        <small style="color:grey; float:right; "><i class="fa fa-picture-o" aria-hidden="true"></i> `+y.jumlah_foto+` Images</small>
-                        <small style="float:left; ">
-                          `+gender+`
-                        </small>
-                        <br>
-                      </div>
-                    </div>
-                  </a>
-                </div>
+              <div class="col-6 col-lg-3">
+                <a class="card shadow-1 hover-shadow-6" href="{{url('rekomendasi-kado-`+nama_group+`/`+y.id+`/`+y.slug+`')}}" target="_blank"">
+                  <img class="card-img-top" src="{{asset('`+y.foto_thumbnail+`')}}" alt="avatar">
+                  <div class="card-body">
+                    <h6 class="mb-0">`+y.nama_kado+`</h6>
+                    <small class="small-2 ls-1" style="font-weight: 800;">Rp. `+set_currency(y.harga)+`</small>
+                  </div>
+                </a>
+              </div>
               
               `;
             });
