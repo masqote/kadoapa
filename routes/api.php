@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/all_kategori', 'App\Http\Controllers\API\KadoController@kategori');
 Route::post('/all_kado', 'App\Http\Controllers\API\KadoController@index');
+Route::get('/detail_kado/{id}', 'App\Http\Controllers\API\KadoController@detailKado');
 // Route::post('/detail_kado/{id}/{slug}', 'App\Http\Controllers\KadoController@detailKado');
 
 // Route::post('/login', 'App\Http\Controllers\UserController@login');

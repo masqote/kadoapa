@@ -46,7 +46,7 @@ class KadoController extends Controller
       }
 
       $rsData = DB::table('kado as a')
-      ->select('a.id','a.nama_kado','a.harga','a.pria','a.wanita','a.umur','a.deskripsi','a.created_at','a.slug','b.nama_group','x.foto as foto_thumbnail')
+      ->select('a.id','a.nama_kado','a.harga','a.pria','a.wanita','a.umur','a.deskripsi','a.created_at','a.slug','b.nama_group','x.foto as foto_thumbnail','a.id_kado_group')
       ->leftJoin('kado_groups as b', 'a.id_kado_group', '=', 'b.id')
       ->leftJoin('kado_foto as x', 'a.thumbnail', '=', 'x.id')
       ->where('a.fg_aktif',1)
@@ -110,6 +110,43 @@ class KadoController extends Controller
 
       $data['kado'] = $qData;
       
+      return response()->json($data, http_response_code(200));
+    }
+
+    public function detailKado(Request $req,$id)
+    {
+      $kado = DB::table('kado as a')
+      ->select('a.*','b.nama_group')
+      ->leftJoin('kado_groups as b', 'a.id_kado_group', '=', 'b.id')
+      ->where('a.id',$id)
+      ->first();
+
+      $lokasi = DB::table('kado_lokasi as a')
+      ->select('a.*')
+      ->leftJoin('kado as b', 'a.id_kado', '=', 'b.id')
+      ->where('a.id_kado',$id)
+      ->get();
+
+      $foto = DB::table('kado_foto as a')
+      ->select('a.*','b.thumbnail','b.nama_kado')
+      ->leftJoin('kado as b', 'a.id', '=', 'b.thumbnail')
+      ->where('a.id_kado',$id)
+      ->where('a.fg_aktif',1)
+      ->get();
+
+      $video = DB::table('kado as a')
+      ->leftJoin('kado_videos as b', 'a.id', '=', 'b.id_kado')
+      ->leftJoin('kado_foto as c', 'a.thumbnail', '=', 'c.id')
+      ->where('b.id_kado', $id)
+      ->where('b.fg_aktif',1)
+      ->first();
+
+      $kado->lokasi = $lokasi;
+      $kado->foto = $foto;
+      $kado->video = $video;
+
+      $data['kado'] = $kado;
+
       return response()->json($data, http_response_code(200));
     }
 
