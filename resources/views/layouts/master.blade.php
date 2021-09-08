@@ -32,7 +32,7 @@
             <div class="navbar-left">
               <button class="navbar-toggler" type="button"><span class="navbar-toggler-icon"></span></button>
               <a class="navbar-brand" href="{{url('/')}}">
-                <img class="logo-dark" style="width: 130px;" src="{{asset('img/logo/zonakado1.png')}}" alt="logo">
+                <img class="logo-dark" width="130" height="130" src="{{asset('img/logo/zonakado1.png')}}" alt="logo">
               </a>
             </div>
 
@@ -115,19 +115,17 @@
                   </div>
                 </div>
     
-                <div class="col-md-6 text-center text-md-left mt-5 mt-md-0">
+                {{-- <div class="col-md-6 text-center text-md-left mt-5 mt-md-0">
                   <div class="social social-bg-dark">
                     <a class="social-facebook" href="#"><i class="fa fa-facebook"></i></a>
-                    <a class="social-twitter" href="#"><i class="fa fa-twitter"></i></a>
                     <a class="social-instagram" href="#"><i class="fa fa-instagram"></i></a>
                     <a class="social-youtube" href="#"><i class="fa fa-youtube"></i></a>
-                    <a class="social-dribbble" href="#"><i class="fa fa-dribbble"></i></a>
                   </div>
-                </div>
+                </div> --}}
     
                 <div class="col-12 text-center">
                   <br>
-                  <small>© TheThemeio 2020, All rights reserved.</small>
+                  <small>© {{config('app.name')}} {{date("Y")}}, All rights reserved.</small>
                 </div>
     
               </div>

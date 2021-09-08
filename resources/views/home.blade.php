@@ -19,8 +19,7 @@
 @endsection
 
 @section('header')
-<header id="home" class="header text-white h-fullscreen text-center text-lg-left" 
-style="background: linear-gradient(135deg, #8b98fc 40%,  #764ba2 100% 100%);">
+<header id="home" class="header text-white h-fullscreen text-center text-lg-left" style="background: linear-gradient(135deg, #6a75c7 20%,  #764ba2 91% 100%);">
   
   <div class="container">
     <div class="row align-items-center h-100">
@@ -35,7 +34,7 @@ style="background: linear-gradient(135deg, #8b98fc 40%,  #764ba2 100% 100%);">
               <div class="form-group">
                 <label>Kado Untuk</label>
                 <select class="form-control form-control-sm" name="kategori">
-                  
+                  <option value="">Semua</option>
                 </select>
               </div>
             </div>
@@ -125,7 +124,34 @@ style="background: linear-gradient(135deg, #8b98fc 40%,  #764ba2 100% 100%);">
 @section('js')
 <script>
   $(document).ready(function(){
-    kategori();
+    // kategori();
+
+    $.ajax({
+        type 	: 'POST',
+        url: "{{url('/all_kategori')}}",
+        headers	: { "X-CSRF-TOKEN": "{{ csrf_token() }}" },
+        dataType: "json",
+        success: function( data ) {
+          var tbl = '<option value="">Semua</option>';
+          kategori = data.kategori;
+
+          $.each(kategori,function(x,y){
+            tbl += `
+              <option value="`+y.id+`">`+y.nama_kategori+`</option>
+            `;
+            
+          });
+
+          $('#frm_search [name="kategori"]').html(tbl);
+
+        },
+        error : function(xhr) {
+          read_error(xhr);
+        },
+        complete : function(xhr,status){
+
+        }
+    });
 
     $("#frm_search").submit(function(e) {
         e.preventDefault();
@@ -187,39 +213,6 @@ style="background: linear-gradient(135deg, #8b98fc 40%,  #764ba2 100% 100%);">
   }
 
 
-
-  function kategori(){
-    showLoading();
-    // <option value="">Semua</option>
-    $.ajax({
-        type 	: 'POST',
-        url: "{{url('/all_kategori')}}",
-        headers	: { "X-CSRF-TOKEN": "{{ csrf_token() }}" },
-        dataType: "json",
-        success: function( data ) {
-          var tbl = '<option value="">Semua</option>';
-          kategori = data.kategori;
-
-          $.each(kategori,function(x,y){
-            tbl += `
-              <option value="`+y.id+`">`+y.nama_kategori+`</option>
-            `;
-            
-          });
-
-          $('#frm_search [name="kategori"]').html(tbl);
-
-        },
-        error : function(xhr) {
-          read_error(xhr);
-          closeLoading();
-        },
-        complete : function(xhr,status){
-          closeLoading();
-        }
-    });
-  }
-
   function searchData(page,more){
     $('#rekomendasi_kado').show();
     showLoading();
@@ -242,7 +235,7 @@ style="background: linear-gradient(135deg, #8b98fc 40%,  #764ba2 100% 100%);">
           'sort_harga': sort_harga
         },
         success: function( data ) {
-          console.log(data);
+
           var tbl = '';
           var kado = data.kado.data;
           var thumbnail = "{{asset('img/default/gift-1.jpg')}}";
