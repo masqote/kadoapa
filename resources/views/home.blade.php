@@ -72,7 +72,7 @@
           </div>
 
           <a href="#rekomendasi_kado">
-            <button type="submit" class="btn btn-label btn-success" style="margin-top:20px;" id="cari_kado">
+            <button type="submit" class="btn btn-label btn-primary" style="margin-top:20px; color:white;" id="cari_kado">
               <label><i class="fa fa-gift"></i></label> Cari Kado!
             </button>
           </a>
@@ -115,7 +115,15 @@
           <br>
           
             <nav class="nav justify-content-end" style="margin-bottom:30px;">
-              <div class="form-group">
+              <div class="form-group" style="margin-right:10px;">
+                <h6>Gender : </h6>
+                <select class="form-control form-control-sm" style="color:black;" name="gender_filter" id="gender_filter">
+                  <option value="">Semua</option>
+                  <option value="pria">Pria</option>
+                  <option value="wanita">Wanita</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-right:10px;">
                 <h6>Kategori : </h6>
                 <select class="form-control form-control-sm" name="kategori_filter" style="color:black;" id="sort_kategori">
                   <option value="">Semua</option>
@@ -250,6 +258,10 @@
       var kategori_selected = $('#frm_search [name="kategori"]').find(":selected").text();
       var kategori_selected_val = $('#frm_search [name="kategori"]').find(":selected").val();
 
+      var gender = $('#frm_search [name="gender"]').find(":selected").val();
+      $('#gender_filter').val(gender);
+
+
       if (kategori_selected == 'Semua') {
         $('#title_detail').text(kategori_selected+' Kado');
         $('[name="kategori_filter"]').val(kategori_selected_val);
@@ -279,6 +291,15 @@
         $('#title_detail').text('Kado '+kategori_selected);
         $('[name="kategori_filter"]').val(kategori_selected_val);
       }
+
+      searchData(page);
+    });
+
+    $('[name="gender_filter"]').change(function() { // function untuk melakukan filter harga
+      page = 1;
+      var gender = $('[name="gender_filter"]').find(":selected").val();
+
+      $('#frm_search [name="gender"]').val(gender);
 
       searchData(page);
     });
