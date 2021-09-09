@@ -166,6 +166,7 @@ class KadoController extends Controller
       ->leftJoin('kado_foto as c', 'a.thumbnail', '=', 'c.id')
       ->where('a.id_kado_group',$kado->id_kado_group)
       ->where('a.id','<>',$id)
+      ->where('a.fg_aktif',1)
     //   ->where([
     //     ['a.harga', '<=', ($kado->harga + $hargaSekitar)],
     //     ['a.harga', '>=',  ($kado->harga - $hargaSekitar)],
