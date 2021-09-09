@@ -371,7 +371,7 @@
                 <a class="card shadow-1 hover-shadow-6" href="{{url('rekomendasi-kado-`+nama_group+`/`+y.id+`/`+y.slug+`')}}" target="_blank"">
                   <img class="card-img-top" src="{{asset('`+y.foto_thumbnail+`')}}" alt="avatar">
                   <div class="card-body">
-                    <h6 class="mb-0">`+y.nama_kado+`</h6>
+                    <h6 class="mb-0" style="line-height:1.5em; min-height:4.5em; max-height:4.5em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">`+y.nama_kado+`</h6>
                     <small class="small-2 ls-1" style="font-weight: 800;">Rp. `+set_currency(y.harga)+`</small>
                   </div>
                 </a>

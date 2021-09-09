@@ -311,12 +311,12 @@ Kado {{ ucwords(str_replace("-", " ", request()->slug)) }} {{'- '.config('app.na
                 $group_url = strtolower($group_url);
               @endphp
             <a href="{{url('rekomendasi-kado-'.$group_url.'/'.$row->id.'/'.$row->slug.'')}}">
-               <div class="card shadow p-1 mb-5 bg-white" style="width:200px;">
+               <div class="card shadow p-1 mb-5 bg-white" style="width:170px;">
                  <div class="card-img-top">
                    <img class="product-card-img initial loaded" src="{{asset($row->thumbnail)}}" data-src="{{$row->thumbnail}}" alt="{{$row->nama_kado}}" height="200" width="200" data-was-processed="true">
                  </div>
                  <div class="card-body">
-                   <h6 class="h6 mb-0">
+                   <h6 class="h6 mb-0" style="line-height:1.5em; min-height:4.5em; max-height:4.5em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                      {{$row->nama_kado}}
                    </h6>
                    <div class="product-price">Rp. {{number_format($row->harga)}}</div>
